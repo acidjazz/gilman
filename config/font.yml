@@ -5,6 +5,7 @@ h1:
   font-weight: '700'
   font-size: 60px
   line-height: 70px
+  letter-spacing: 2px
 
 h2-light:
   font-family: Karla
@@ -25,6 +26,18 @@ h3:
   font-weight: '700'
   font-size: 24px
   line-height: 30px
+
+h4:
+  font-family: Cutive
+  font-size: 18px
+  line-height: 24px
+  letter-spacing: 2px
+
+h5:
+  font-family: Cutive
+  font-size: 14px
+  line-height: 20px
+  letter-spacing: 2px
 
 body:
   font-family: Karla

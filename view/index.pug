@@ -2,5 +2,28 @@ extends extend/layout
 
 block content
 
-  .title gilman brewing
+  .top
+    .clear
+    .menu
+      .item draft list
+      .dot &#8901;
+      .item events &amp; growlers
+      .dot &#8901;
+      .item taproom
+      .dot &#8901;
+      .item about
 
+    .soon opening soon
+
+    .doors doors open september 12
+
+    a.cta(href='#') see our beers
+
+  .info
+    .label taproom
+    .copy #{config.meta.address.street}, #{config.meta.address.city}, #{config.meta.address.state}, #{config.meta.address.zip}
+    .anvil
+    .label hours
+    .copy Mon-Thu 11am-11pm
+    .dot &#8901;
+    .copy Fri-Sun 11am-1am

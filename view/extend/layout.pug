@@ -54,11 +54,7 @@ html(lang='en')
     script(type='text/javascript', src='/js/config.js')
 
     //- google
-    if meta
-      meta(name='description',content=meta.description)
-    else
-      meta(name='description',content=config.meta.description)
-
+    meta(name='description',content=config.meta.description)
     meta(name='keywords',content=config.meta.keywords)
 
     script(type='application/ld+json').
@@ -85,33 +81,21 @@ html(lang='en')
 
       }
 
-    //- facebook
-    if meta
-      meta(property='og:url',content=meta.url)
-      meta(property='og:title',content=meta.title)
-      meta(property='og:image',content=meta.image)
-      meta(property='og:description',content=meta.description)
-    else
-      meta(property='og:url',content=config.meta.url)
-      meta(property='og:title',content=config.meta.title)
-      meta(property='og:image',content=config.meta.url + config.meta.share)
-      meta(property='og:description',content=config.meta.description)
+    meta(property='og:url',content=config.meta.url)
+    meta(property='og:title',content=config.meta.title)
+    meta(property='og:image',content=config.meta.url + config.meta.share)
+    meta(property='og:description',content=config.meta.description)
 
     meta(property='og:type',content='website')
 
     //- twitter
     meta(name='twitter:card',content='summary_large_image')
 
-    if meta
-      meta(name='twitter:title',content=meta.title)
-      meta(name='twitter:description',content=meta.description)
-      meta(name='twitter:image',content=config.meta.url + config.meta.share)
-    else
-      meta(name='twitter:title',content=config.meta.title)
-      meta(name='twitter:description',content=config.meta.description)
-      meta(name='twitter:image',content=config.meta.url + config.meta.share)
-      meta(name='twitter:image:width','1200')
-      meta(name='twitter:image:height','630')
+    meta(name='twitter:title',content=config.meta.title)
+    meta(name='twitter:description',content=config.meta.description)
+    meta(name='twitter:image',content=config.meta.url + config.meta.share)
+    meta(name='twitter:image:width','1200')
+    meta(name='twitter:image:height','630')
 
 
     link(rel="apple-touch-icon",sizes="57x57",href="/ico/apple-touch-icon-57x57.png")

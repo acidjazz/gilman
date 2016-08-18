@@ -6,7 +6,12 @@ keywords: keywords
 trackingID: UA-77714389-1
 share: img/share.jpg
 repo: http://www.github.com/acidjazz/gilman
-address: https://goo.gl/maps/ARK41fBafUN2
+address:
+  map: https://goo.gl/maps/ARK41fBafUN2
+  street: 912 Gilman St
+  city: Berkeley
+  state: CA
+  zip: 93710
 social:
   facebook: https://www.facebook.com/gilman
   twitter: https://twitter.com/gilman
