@@ -1,45 +1,32 @@
 
-var gulp = require('gulp');
-var sync = require('browser-sync').create();
+var gulp         = require('gulp');
+var sync         = require('browser-sync').create();
+var notify       = require('gulp-notify');
+var coffee       = require('gulp-coffee');
+var uglify       = require('gulp-uglify');
+var concat       = require('gulp-concat');
+var stylus       = require('gulp-stylus');
+var pug          = require('gulp-pug');
+var sourcemaps   = require('gulp-sourcemaps');
+var fs           = require('fs');
+var objectus     = require('objectus');
 
-var notify = require('gulp-notify');
+var objectify = function() {
 
-var coffee = require('gulp-coffee');
-var uglify = require('gulp-uglify');
-var concat = require('gulp-concat');
-
-var stylus = require('gulp-stylus');
-var pug = require('gulp-pug');
-
-var sourcemaps = require('gulp-sourcemaps');
-
-var path = require('path');
-var fs = require('fs');
-
-var objectus = require('objectus');
-
-objectus('config/', function(error, result) {
-  if (error) {
-    notify(error);
-  }
-  config = result;
-});
-
-
-gulp.task('objectus', function() {
   objectus('config/', function(error, result) {
-
     if (error) {
       notify(error);
     }
-
     config = result;
-
   });
 
-  return true;
+  return config;
 
-});
+}
+
+var config = objectify();
+
+gulp.task('objectus', objectify);
 
 gulp.task('vendor', function() {
 
@@ -99,6 +86,17 @@ gulp.task('pug', function() {
 
 });
 
+var watch = function() {
+
+  gulp.watch('config/**/*', ['objectus','stylus','pug']);
+  gulp.watch('coffee/**/*.coffee', ['objectus', 'coffee']);
+  gulp.watch('stylus/**/*.styl', ['stylus']);
+  gulp.watch('view/**/*.pug', ['pug']);
+  gulp.watch('resource/svg/**/*.svg', ['pug']);
+  gulp.watch('public/image/**/*', ['pug']);
+
+};
+
 gulp.task('sync', function() {
   sync.init({
     notify: false,
@@ -112,24 +110,12 @@ gulp.task('sync', function() {
       scroll: false
     },
     scrollProportionally: false,
-    //scrollRestoreTechnique: 'cookie'
   });
 
-  gulp.watch('config/**/*', ['objectus','stylus','pug']);
-  gulp.watch('coffee/**/*.coffee', ['objectus', 'coffee']);
-  gulp.watch('stylus/**/*.styl', ['stylus']);
-  gulp.watch('view/**/*.pug', ['pug']);
-  gulp.watch('resource/svg/**/*.svg', ['pug']);
-  gulp.watch('public/image/**/*', ['pug']);
+  watch();
 
 });
 
-
-gulp.task('watch', function() {
-  gulp.watch('config/**/*', ['objectus','stylus','pug']);
-  gulp.watch('coffee/**/*.coffee', ['coffee']);
-  gulp.watch('stylus/**/*.styl', ['stylus']);
-  gulp.watch('view/**/*.pug', ['pug']);
-});
+gulp.task('watch', watch);
 
 gulp.task('default', ['objectus','coffee', 'stylus', 'pug', 'vendor']);
