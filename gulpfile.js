@@ -88,7 +88,7 @@ gulp.task('pug', function() {
 
 var watch = function() {
 
-  gulp.watch('config/**/*', ['objectus','stylus','pug']);
+  gulp.watch('config/**/*', ['objectus','pug', 'stylus']);
   gulp.watch('coffee/**/*.coffee', ['objectus', 'coffee']);
   gulp.watch('stylus/**/*.styl', ['stylus']);
   gulp.watch('view/**/*.pug', ['pug']);

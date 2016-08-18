@@ -4,17 +4,15 @@
   > .sections
     padding 20px
     > .gsection
-      width 33%
+      min-width 200px
       float left
       > .title
         gf(body)
         padding 0 0 0 10px
-        color gc(white1)
 
       > .color
         padding 10px 20px
         margin 5px
-        color gc(white1)
         for name, color in config.color
           &.color_{name}
             background-color: convert(color)
@@ -27,7 +25,6 @@
       > .font
         padding 10px 20px
         overflow-x scroll
-        color gc(white1)
         for name, font in config.font
           &.font_{name}
             gf(name)
