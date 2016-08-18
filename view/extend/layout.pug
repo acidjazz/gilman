@@ -66,17 +66,16 @@ html(lang='en')
         "telephone": "14159933305",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "1740 Telegraph Ave",
-          "addressLocality": "Oakland",
-          "addressRegion": "CA",
-          "postalCode": "94612",
-          "addressCountry": "US"
+          "streetAddress": "#{config.meta.address.street}",
+          "addressLocality": "#{config.meta.address.street}",
+          "addressRegion": "#{config.meta.address.state}",
+          "postalCode": "#{config.meta.address.zip}",
+          "addressCountry": "#{config.meta.address.country}"
         },
         "sameAs": [
-          "https://www.facebook.com/definery.io/",
-          "#{config.meta.social.linkedin}",
-          "https://www.twitter.com/definery_io/",
-          "https://www.instagram.com/definery.io/"
+          "#{config.meta.social.instagram}",
+          "#{config.meta.social.twitter}",
+          "#{config.meta.social.facebook}",
         ]
 
       }

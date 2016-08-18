@@ -1,10 +1,35 @@
-
 .top
   background url('../image/growler.jpg')
   background-size cover
   height calc(100vh - 86px)
   text-align center
   text-transform uppercase
+  position relative
+
+  > .logo
+    w = 389
+    h = 240
+    width unit(w/3, px)
+    height unit(h/3, px)
+    background url('../image/logo.png')
+    background-size cover
+
+    position absolute
+    top 30px
+    left 20px
+
+  > .socials
+    position absolute
+    top 30px
+    right 20px
+    > .social
+      margin 0 0 0 10px
+      float left
+      width 20px
+      height 20px
+      > svg
+       path
+        fill gc(white1)
 
   > .menu
     gf(h4)
@@ -45,8 +70,13 @@
     color gc(grey30)
     text-transform uppercase
     gf(h5)
+    padding 0 10px 0 0
   > .copy
     color gc(grey15)
+
+  > .dot
+    color gc(grey50)
+    padding 0 10px
 
   > .anvil
     background url('../image/hammer.png')
