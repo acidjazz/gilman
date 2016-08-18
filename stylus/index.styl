@@ -16,19 +16,31 @@
     background url('../image/logo.png')
     background-size cover
 
+    animation inFromLeft 0.2s ease-in-out 0.5s both
     position absolute
-    top 30px
-    left 20px
+    top 20px
+    left 30px
 
   > .socials
     position absolute
-    top 30px
-    right 20px
+    top 45px
+    right 30px
     > .social
-      margin 0 0 0 10px
+      margin 0 0 0 5px
       float left
       width 20px
       height 20px
+      padding 5px
+      border-radius 4px
+      transition background-color 0.1s linear 0.2s
+      &:hover
+        background-color gc(goldlight)
+        transition background-color 0.1s linear
+      animation inFromRight 0.2s ease-in-out 0.4s both
+      &:nth-child(2)
+        animation-delay 0.5s
+      &:nth-child(3)
+        animation-delay 0.6s
       > svg
        path
         fill gc(white1)
@@ -46,8 +58,12 @@
         &:nth-child({i})
           animation-delay unit(0.05*i, 's')
     > .dot
-      content '&#8901'
+      margin 0 0 5px 0
       padding 0
+      width 5px
+      height 5px
+      background-color gc(white1)
+      border-radius 50%
 
   > .soon
     gf(h4)
@@ -66,6 +82,10 @@
     color gc(grey90)
     display inline-block
     padding 30px 80px
+    transition color 0.2s linear 0.2s
+    &:hover
+      color gc(white1)
+      transition color 0.2s linear 0s
 
 .info
   padding 30px 0
@@ -80,10 +100,17 @@
     padding 0 10px 0 0
   > .copy
     color gc(grey15)
+    transition color 0.1s linear
+  > a.copy:hover
+    color gc(goldlight)
+
 
   > .dot
-    color gc(grey50)
-    padding 0 10px
+    width 5px
+    height 5px
+    background-color gc(grey70)
+    border-radius 50%
+    margin 0 10px 4px 10px
 
   > .anvil
     background url('../image/hammer.png')
