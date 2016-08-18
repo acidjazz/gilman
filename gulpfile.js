@@ -64,7 +64,7 @@ gulp.task('coffee', function() {
       }))
     )
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('pub/js'))
+    .pipe(gulp.dest('public/js'))
     .pipe(sync.stream());
 });
 
