@@ -22,7 +22,7 @@ objectus('config/', function(error, result) {
   if (error) {
     notify(error);
   }
-  data = result;
+  config = result;
 });
 
 
@@ -33,7 +33,7 @@ gulp.task('objectus', function() {
       notify(error);
     }
 
-    data = result;
+    config = result;
 
   });
 
@@ -41,22 +41,20 @@ gulp.task('objectus', function() {
 
 });
 
-gulp.task('vendors', function() {
+gulp.task('vendor', function() {
 
   gulp.src([
-    'bower_components/jquery/dist/jquery.js',
+    'node_modules/jquery/dist/jquery.js',
   ])
-  .pipe(sourcemaps.init())
   .pipe(uglify())
   .pipe(concat('vendor.min.js'))
-  .pipe(sourcemaps.write())
   .pipe(gulp.dest('public/js/lib'));
 
 });
 
 gulp.task('coffee', function() {
 
-  fs.writeFileSync('public/js/config.js', "var config = " + JSON.stringify(data) + ";", 'utf8')
+  fs.writeFileSync('public/js/config.js', "var config = " + JSON.stringify(config) + ";", 'utf8')
 
   gulp.src('coffee/**/*.coffee')
     .pipe(sourcemaps.init())
@@ -75,7 +73,7 @@ gulp.task('stylus', function() {
   gulp.src('stylus/main.styl')
 
     .pipe(sourcemaps.init())
-    .pipe(stylus({ rawDefine: { data: data } })
+    .pipe(stylus({ rawDefine: { config: config } })
     .on('error', notify.onError(function(error) {
       return {title: "Stylus error: " + error.name, message: error.message, sound: 'Pop' };
     })))
@@ -88,9 +86,9 @@ gulp.task('stylus', function() {
 gulp.task('pug', function() {
 
   gulp.src('view/**/index.pug')
-    .pipe(pug({pretty: true, locals: {data: data}})
+    .pipe(pug({pretty: true, locals: {config: config}})
       .on('error', notify.onError(function(error) {
-        return {title: "Jade error: " + error.name, message: error.message, sound: 'Pop' };
+        return {title: "Pug error: " + error.name, message: error.message, sound: 'Pop' };
       }))
       .on('error', function(error) {
         console.log(error);
@@ -134,4 +132,4 @@ gulp.task('watch', function() {
   gulp.watch('view/**/*.pug', ['pug']);
 });
 
-gulp.task('default', ['objectus','coffee', 'stylus', 'pug', 'vendors']);
+gulp.task('default', ['objectus','coffee', 'stylus', 'pug', 'vendor']);
