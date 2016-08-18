@@ -11,6 +11,12 @@ var sourcemaps   = require('gulp-sourcemaps');
 var fs           = require('fs');
 var objectus     = require('objectus');
 
+var dirs = {
+  coffee: 'resources/coffee',
+  pug: 'resources/views',
+  stylus: 'resources/stylus',
+};
+
 var objectify = function() {
 
   objectus('config/', function(error, result) {
@@ -23,7 +29,6 @@ var objectify = function() {
   return config;
 
 }
-
 var config = objectify();
 
 gulp.task('objectus', objectify);
@@ -43,7 +48,7 @@ gulp.task('coffee', function() {
 
   fs.writeFileSync('public/js/config.js', "var config = " + JSON.stringify(config) + ";", 'utf8')
 
-  gulp.src('coffee/**/*.coffee')
+  gulp.src(dirs.coffe + '/**/*.coffee')
     .pipe(sourcemaps.init())
     .pipe(coffee({bare: true})
       .on('error', notify.onError(function(error) {
@@ -57,7 +62,7 @@ gulp.task('coffee', function() {
 
 gulp.task('stylus', function() {
 
-  gulp.src('stylus/main.styl')
+  gulp.src(dirs.stylus + '/main.styl')
 
     .pipe(sourcemaps.init())
     .pipe(stylus({ rawDefine: { config: config } })
@@ -72,7 +77,7 @@ gulp.task('stylus', function() {
 
 gulp.task('pug', function() {
 
-  gulp.src('view/**/index.pug')
+  gulp.src(dirs.pug + '/**/index.pug')
     .pipe(pug({pretty: true, locals: {config: config}})
       .on('error', notify.onError(function(error) {
         return {title: "Pug error: " + error.name, message: error.message, sound: 'Pop' };
@@ -89,11 +94,11 @@ gulp.task('pug', function() {
 var watch = function() {
 
   gulp.watch('config/**/*', ['objectus','pug', 'stylus']);
-  gulp.watch('coffee/**/*.coffee', ['objectus', 'coffee']);
-  gulp.watch('stylus/**/*.styl', ['stylus']);
-  gulp.watch('view/**/*.pug', ['pug']);
-  gulp.watch('resource/svg/**/*.svg', ['pug']);
-  gulp.watch('public/image/**/*', ['pug']);
+  gulp.watch(dirs.coffee + '/**/*.coffee', ['objectus', 'coffee']);
+  gulp.watch(dirs.stylus + '/**/*.styl', ['stylus']);
+  gulp.watch(dirs.pug + '/**/*.pug', ['pug']);
+  gulp.watch('resources/vector/**/*.svg', ['pug']);
+  gulp.watch('public/images/**/*', ['pug']);
 
 };
 
