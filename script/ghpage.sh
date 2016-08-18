@@ -1,2 +1,2 @@
 #!/bin/bash
-git subtree push --prefix pub licorigin gh-pages
+git subtree push --prefix public origin gh-pages
