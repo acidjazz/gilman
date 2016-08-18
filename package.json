@@ -1,0 +1,35 @@
+{
+  "name": "gilman",
+  "version": "0.0.1",
+  "description": "the process of rapidy concepting",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/acidjazz/gilman.git"
+  },
+  "keywords": [
+    "gilman",
+    "html",
+    "javascript"
+  ],
+  "author": "Kevin Olson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/acidjazz/gilman/issues"
+  },
+  "homepage": "https://github.com/acidjazz/gilman#readme",
+  "dependencies": {
+    "browser-sync": "^2.14.0",
+    "gulp-coffee": "^2.3.2",
+    "gulp-concat": "^2.6.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-pug": "^3.0.4",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-stylus": "^2.5.0",
+    "gulp-uglify": "^2.0.0",
+    "objectus": "^1.1.1"
+  }
+}
