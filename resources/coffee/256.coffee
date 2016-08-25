@@ -1,8 +1,12 @@
-_ =
+class twofivesix
+
+  constructor: ->
+    @console = setInterval(@detect.bind(@), 200)
 
   p:
     offing: false
     offtime: 0
+
 
   turn: (el, remove=false, add=false) ->
 
@@ -21,19 +25,19 @@ _ =
 
     if p.offing and p.offtime > 0
 
-      _.turn el, false, 'offing'
+      @turn el, false, 'offing'
       setTimeout ->
-        _.turn el, 'offing', false
-        _.turn el, 'on', 'off'
+        @turn el, 'offing', false
+        @turn el, 'on', 'off'
       , p.offtime*1000 + 100
 
     else
-      _.turn el, 'on', 'off'
+      @turn el, 'on', 'off'
 
     return
 
   on: (el, p) ->
-    _.turn el, 'off', 'on'
+    @turn el, 'off', 'on'
 
   swap: (el, p) ->
 
@@ -41,9 +45,9 @@ _ =
       el = $(el)
 
     if el.hasClass 'off'
-      _.on el, p
+      @on el, p
     else
-      _.off el, p
+      @off el, p
 
     return
 
@@ -89,8 +93,9 @@ _ =
 
   detect: ->
     if ((window.outerHeight - window.innerHeight) > 100)
-      _.llc()
-      clearInterval _.console
+      @llc()
+      clearInterval @console
 
-_.console = setInterval _.detect, 200
+#@console = setInterval @detect, 200
 
+module.exports = twofivesix
