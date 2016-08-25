@@ -48,7 +48,7 @@ gulp.task('coffee', function() {
 
   fs.writeFileSync('public/js/config.js', "var config = " + JSON.stringify(config) + ";", 'utf8')
 
-  gulp.src(dirs.coffe + '/**/*.coffee')
+  gulp.src(dirs.coffee + '/**/*.coffee')
     .pipe(sourcemaps.init())
     .pipe(coffee({bare: true})
       .on('error', notify.onError(function(error) {
