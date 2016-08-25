@@ -7,7 +7,6 @@ class twofivesix
     offing: false
     offtime: 0
 
-
   turn: (el, remove=false, add=false) ->
 
     if el not instanceof jQuery
