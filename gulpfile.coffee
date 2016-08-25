@@ -36,7 +36,12 @@ config = objectify()
 gulp.task 'objectus', objectify
 
 gulp.task 'vendor', ->
-  gulp.src([ 'node_modules/jquery/dist/jquery.js' ]).pipe(uglify()).pipe(concat('vendor.min.js')).pipe gulp.dest('public/js/lib')
+  gulp.src([
+    'node_modules/jquery/dist/jquery.js'
+  ])
+  .pipe(uglify())
+  .pipe(concat('vendor.min.js'))
+  .pipe gulp.dest('public/js/lib')
   return
 
 customOpts =
