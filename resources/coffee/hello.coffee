@@ -8,5 +8,4 @@ class Hello
   test :->
     console.log 'this is a test function'
 
-`export { Hello as default }`
-
+`export Hello`

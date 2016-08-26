@@ -6,7 +6,6 @@ coffee       = require('gulp-coffee')
 browserify   = require('browserify')
 watchify     = require('watchify')
 coffeeify    = require('coffeeify')
-babelify     = require('babelify')
 assign       = require('lodash.assign')
 source       = require('vinyl-source-stream')
 buffer       = require('vinyl-buffer')
@@ -45,11 +44,8 @@ gulp.task 'vendor', ->
   return
 
 customOpts =
-  entries: [ dirs.coffee + 'main.coffee' ]
-  transform: [
-    'coffeeify'
-    'babelify'
-  ]
+  entries: [ dirs.coffee + '/main.coffee' ]
+  transform: [ 'coffeeify' ]
   extensions: [ '.coffee' ]
   debug: true
 
@@ -67,11 +63,9 @@ gulp.task 'bundle', ->
   ))
   .pipe(source('bundle.js'))
   .pipe(buffer())
-  .pipe(sourcemaps.init(
-    loadMaps: true
-    debug: true))
+  .pipe(sourcemaps.init())
   .pipe(uglify())
-  .pipe(sourcemaps.write('./maps'))
+  .pipe(sourcemaps.write('./'))
   .pipe(gulp.dest('./public/js/'))
   .pipe sync.stream()
 

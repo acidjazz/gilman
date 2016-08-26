@@ -95,6 +95,4 @@ class twofivesix
       @llc()
       clearInterval @console
 
-#@console = setInterval @detect, 200
-
 module.exports = twofivesix
