@@ -2,7 +2,6 @@
 gulp         = require('gulp')
 sync         = require('browser-sync').create()
 notify       = require('gulp-notify')
-coffee       = require('gulp-coffee')
 browserify   = require('browserify')
 watchify     = require('watchify')
 coffeeify    = require('coffeeify')
@@ -130,5 +129,5 @@ gulp.task 'sync', ->
   return
 
 gulp.task 'watch', watch
-gulp.task 'default', [ 'objectus', 'coffee', 'stylus', 'pug', 'vendor' ]
+gulp.task 'default', [ 'objectus', 'stylus', 'pug', 'vendor' ]
 
