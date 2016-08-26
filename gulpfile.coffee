@@ -10,6 +10,7 @@ source       = require('vinyl-source-stream')
 buffer       = require('vinyl-buffer')
 uglify       = require('gulp-uglify')
 clean        = require('gulp-clean-css')
+htmlmin      = require('gulp-htmlmin')
 concat       = require('gulp-concat')
 stylus       = require('gulp-stylus')
 pug          = require('gulp-pug')
@@ -41,7 +42,7 @@ gulp.task 'goprod', ->
 
 gulp.task 'vendor', ->
   gulp.src([
-    'node_modules/jquery/dist/jquery.js'
+    'node_modules/jquery/dist/jquery.js',
   ])
   .pipe(uglify())
   .pipe(concat('vendor.js'))
@@ -57,14 +58,11 @@ customOpts =
 opts = assign({}, watchify.args, customOpts)
 b = watchify(browserify(opts))
 
-
 gulp.task 'bundle', ->
   b.bundle().on('error', notify.onError((error) ->
-    {
-      title: 'Browserify Error'
-      message: '<%= error.message %>'
-      sound: 'Pop'
-    }
+    title: 'Browserify Error'
+    message: '<%= error.message %>'
+    sound: 'Pop'
   ))
   .pipe(source('bundle.js'))
   .pipe(buffer())
@@ -83,11 +81,9 @@ gulp.task 'stylus', ->
     .pipe(gulpif(env == 'dev',sourcemaps.init()))
     .pipe(stylus(rawDefine: config: config)
     .on('error', notify.onError((error) ->
-      {
-        title: 'Stylus error: ' + error.name
-        message: error.message
-        sound: 'Pop'
-      }
+      title: 'Stylus error: ' + error.name
+      message: error.message
+      sound: 'Pop'
     )))
     .pipe(clean())
     .pipe(gulpif(env == 'dev',sourcemaps.write()))
@@ -100,19 +96,22 @@ gulp.task 'pug', ->
 
   gulp.src(dirs.pug + '/**/index.pug')
     .pipe(pug(
-      pretty: env == 'dev' ? true : false
+      pretty: true
       locals:
         config: config
-  ).on('error', notify.onError((error) ->
-    {
+    ).on('error', notify.onError((error) ->
       title: 'Pug error: ' + error.name
       message: error.message
       sound: 'Pop'
-    }
-  )).on('error', (error) ->
-    console.log error
-    return
-  )).pipe(gulp.dest('public'))
+    )).on('error', (error) ->
+      console.log error
+      return
+    ))
+    .pipe(gulpif(env != 'dev',htmlmin(
+      collapseWhitespace: true
+      processScripts: ['application/ld+json', 'text/javascript']
+    )))
+    .pipe(gulp.dest('public'))
     .pipe sync.stream()
   return
 
