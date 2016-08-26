@@ -45,7 +45,7 @@ gulp.task 'vendor', ->
   gulp.src([
     'node_modules/jquery/dist/jquery.js',
   ])
-  .pipe(uglify())
+  .pipe(gulpif(env != 'dev',uglify()))
   .pipe(concat('vendor.js'))
   .pipe gulp.dest('public/js/')
   return
@@ -61,8 +61,9 @@ opts = assign({}, watchify.args, customOpts)
 watcher = watchify(browserify(opts))
 
 bundle = (watch=true)->
-  watch == true ? watcher : browserify(opts)
-    .bundle().on('error', notify.onError((error) ->
+
+  if watch == false then bundler = browserify(opts) else bundler = watcher
+  bundler.bundle().on('error', notify.onError((error) ->
     title: 'Browserify Error'
     message: '<%= error.message %>'
     sound: 'Pop'
@@ -70,7 +71,7 @@ bundle = (watch=true)->
   .pipe(source('bundle.js'))
   .pipe(buffer())
   .pipe(gulpif(env == 'dev',sourcemaps.init(loadMaps: true)))
-  .pipe(uglify())
+  .pipe(gulpif(env != 'dev',uglify()))
   .pipe(gulpif(env == 'dev',sourcemaps.write()))
   .pipe(gulp.dest('./public/js/'))
   sync.reload()
@@ -127,7 +128,7 @@ watch = ->
   return
 
 gulp.task 'sync', ->
-  bundle()
+  bundle(true)
   sync.init
     notify: false
     open: false
