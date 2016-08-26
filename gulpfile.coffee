@@ -1,4 +1,3 @@
-
 gulp         = require('gulp')
 sync         = require('browser-sync').create()
 notify       = require('gulp-notify')
@@ -14,6 +13,7 @@ htmlmin      = require('gulp-htmlmin')
 concat       = require('gulp-concat')
 stylus       = require('gulp-stylus')
 pug          = require('gulp-pug')
+gutil        = require('gulp-util')
 sourcemaps   = require('gulp-sourcemaps')
 gulpif       = require('gulp-if')
 fs           = require('fs')
@@ -59,11 +59,10 @@ customOpts =
 opts = assign({}, watchify.args, customOpts)
 
 watcher = watchify(browserify(opts))
-gulp.task 'bundle', bundle
-watcher.on 'update', bundle
 
-bundle = ->
-  watcher.bundle().on('error', notify.onError((error) ->
+bundle = (watch=true)->
+  watch == true ? watcher : browserify(opts)
+    .bundle().on('error', notify.onError((error) ->
     title: 'Browserify Error'
     message: '<%= error.message %>'
     sound: 'Pop'
@@ -74,15 +73,17 @@ bundle = ->
   .pipe(uglify())
   .pipe(gulpif(env == 'dev',sourcemaps.write()))
   .pipe(gulp.dest('./public/js/'))
-
-gulp.task 'bundle-reload', ['bundle'], (done) ->
   sync.reload()
-  done()
-  return
+
+gulp.task 'bundle', bundle
+gulp.task 'bundle-once', ->
+  bundle(false)
+watcher.on 'update', bundle
+watcher.on 'log', gutil.log
 
 gulp.task 'stylus', ->
   gulp.src(dirs.stylus + '/main.styl')
-    .pipe(gulpif(env == 'dev',sourcemaps.init()))
+    .pipe(gulpif(env == 'dev',sourcemaps.init(loadMaps: true)))
     .pipe(stylus(rawDefine: config: config)
     .on('error', notify.onError((error) ->
       title: 'Stylus error: ' + error.name
@@ -119,7 +120,6 @@ gulp.task 'pug', ->
 
 watch = ->
   gulp.watch 'config/**/*', ['objectus','pug','stylus']
-  gulp.watch dirs.coffee + '/**/*.coffee', ['objectus','bundle-reload']
   gulp.watch dirs.stylus + '/**/*.styl', ['stylus']
   gulp.watch dirs.pug + '/**/*.pug', ['pug']
   gulp.watch 'resources/vector/**/*.svg', ['pug']
@@ -127,6 +127,7 @@ watch = ->
   return
 
 gulp.task 'sync', ->
+  bundle()
   sync.init
     notify: false
     open: false
@@ -141,6 +142,6 @@ gulp.task 'sync', ->
 
 gulp.task 'watch', watch
 
-gulp.task 'default', ['objectus','stylus','pug','vendor','bundle']
+gulp.task 'default', ['objectus','stylus','pug','vendor','bundle-once']
 gulp.task 'prod', ['goprod','default']
 
