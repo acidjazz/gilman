@@ -91,7 +91,7 @@ class twofivesix
     console.log ascii, "color: grey; font-family: Menlo, monospace;"
 
   detect: ->
-    if ((window.outerHeight - window.innerHeight) > 100)
+    if (((window.outerHeight - window.innerHeight) > 100) || ((window.outerWidth - window.innerWidth) > 100))
       @llc()
       clearInterval @console
 
