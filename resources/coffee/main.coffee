@@ -1,4 +1,3 @@
-
 _ = new (require './256')
 
 Dood = require './dood'
@@ -10,4 +9,3 @@ bob.sayDetail()
 bob.doodMethod()
 
 console.log bob.age
-
