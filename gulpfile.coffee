@@ -19,6 +19,8 @@ gulpif       = require('gulp-if')
 fs           = require('fs')
 objectus     = require('objectus')
 
+env = 'dev'
+
 dirs =
   coffee: 'resources/coffee'
   pug: 'resources/views'
@@ -35,7 +37,6 @@ config = objectify()
 
 gulp.task 'objectus', objectify
 
-env = 'dev'
 gulp.task 'goprod', ->
   env = 'prod'
   return
@@ -56,17 +57,20 @@ customOpts =
   debug: true
 
 opts = assign({}, watchify.args, customOpts)
-b = watchify(browserify(opts))
 
-gulp.task 'bundle', ->
-  b.bundle().on('error', notify.onError((error) ->
+watcher = watchify(browserify(opts))
+gulp.task 'bundle', bundle
+watcher.on 'update', bundle
+
+bundle = ->
+  watcher.bundle().on('error', notify.onError((error) ->
     title: 'Browserify Error'
     message: '<%= error.message %>'
     sound: 'Pop'
   ))
   .pipe(source('bundle.js'))
   .pipe(buffer())
-  .pipe(gulpif(env == 'dev',sourcemaps.init()))
+  .pipe(gulpif(env == 'dev',sourcemaps.init(loadMaps: true)))
   .pipe(uglify())
   .pipe(gulpif(env == 'dev',sourcemaps.write()))
   .pipe(gulp.dest('./public/js/'))
@@ -89,11 +93,9 @@ gulp.task 'stylus', ->
     .pipe(gulpif(env == 'dev',sourcemaps.write()))
     .pipe(gulp.dest('public/css/'))
     .pipe(sync.stream())
-
   return
 
 gulp.task 'pug', ->
-
   gulp.src(dirs.pug + '/**/index.pug')
     .pipe(pug(
       pretty: true
@@ -122,7 +124,6 @@ watch = ->
   gulp.watch dirs.pug + '/**/*.pug', ['pug']
   gulp.watch 'resources/vector/**/*.svg', ['pug']
   gulp.watch 'public/images/**/*', ['pug']
-
   return
 
 gulp.task 'sync', ->
