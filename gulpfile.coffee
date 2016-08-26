@@ -44,14 +44,14 @@ gulp.task 'vendor', ->
     'node_modules/jquery/dist/jquery.js'
   ])
   .pipe(uglify())
-  .pipe(concat('vendor.min.js'))
-  .pipe gulp.dest('public/js/lib')
+  .pipe(concat('vendor.js'))
+  .pipe gulp.dest('public/js/')
   return
 
 customOpts =
-  entries: [ dirs.coffee + '/main.coffee' ]
-  transform: [ 'coffeeify' ]
-  extensions: [ '.coffee' ]
+  entries: [dirs.coffee + '/main.coffee']
+  transform: ['coffeeify']
+  extensions: ['.coffee']
   debug: true
 
 opts = assign({}, watchify.args, customOpts)
@@ -70,7 +70,7 @@ gulp.task 'bundle', ->
   .pipe(buffer())
   .pipe(gulpif(env == 'dev',sourcemaps.init()))
   .pipe(uglify())
-  .pipe(gulpif(env == 'dev',sourcemaps.write('./')))
+  .pipe(gulpif(env == 'dev',sourcemaps.write()))
   .pipe(gulp.dest('./public/js/'))
 
 gulp.task 'bundle-reload', ['bundle'], (done) ->
@@ -117,12 +117,12 @@ gulp.task 'pug', ->
   return
 
 watch = ->
-  gulp.watch 'config/**/*', [ 'objectus','pug','stylus' ]
-  gulp.watch dirs.coffee + '/**/*.coffee', [ 'objectus','bundle-reload' ]
-  gulp.watch dirs.stylus + '/**/*.styl', [ 'stylus' ]
-  gulp.watch dirs.pug + '/**/*.pug', [ 'pug' ]
-  gulp.watch 'resources/vector/**/*.svg', [ 'pug' ]
-  gulp.watch 'public/images/**/*', [ 'pug' ]
+  gulp.watch 'config/**/*', ['objectus','pug','stylus']
+  gulp.watch dirs.coffee + '/**/*.coffee', ['objectus','bundle-reload']
+  gulp.watch dirs.stylus + '/**/*.styl', ['stylus']
+  gulp.watch dirs.pug + '/**/*.pug', ['pug']
+  gulp.watch 'resources/vector/**/*.svg', ['pug']
+  gulp.watch 'public/images/**/*', ['pug']
 
   return
 
@@ -139,8 +139,8 @@ gulp.task 'sync', ->
   watch()
   return
 
-
 gulp.task 'watch', watch
-gulp.task 'default', [ 'objectus', 'stylus', 'pug', 'vendor', 'bundle' ]
-gulp.task 'prod', [ 'goprod', 'objectus', 'stylus', 'pug', 'vendor', 'bundle' ]
+
+gulp.task 'default', ['objectus','stylus','pug','vendor','bundle']
+gulp.task 'prod', ['goprod','default']
 
