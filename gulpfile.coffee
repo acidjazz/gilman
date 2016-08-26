@@ -30,11 +30,9 @@ objectify = ->
     config = result
   return config
 
-
 config = objectify()
 
 gulp.task 'objectus', objectify
-
 
 env = 'dev'
 gulp.task 'goprod', ->
@@ -74,8 +72,6 @@ gulp.task 'bundle', ->
   .pipe(uglify())
   .pipe(gulpif(env == 'dev',sourcemaps.write('./')))
   .pipe(gulp.dest('./public/js/'))
-
-  return
 
 gulp.task 'bundle-reload', ['bundle'], (done) ->
   sync.reload()
