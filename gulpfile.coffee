@@ -109,7 +109,6 @@ gulp.task 'pug', ->
     ))
     .pipe(gulpif(env != 'dev',htmlmin(
       collapseWhitespace: true
-      collapseInlineTagWhitespace: true
       processScripts: ['application/ld+json', 'text/javascript']
     )))
     .pipe(gulp.dest('public'))
