@@ -100,7 +100,7 @@ gulp.task 'pug', ->
 
   gulp.src(dirs.pug + '/**/index.pug')
     .pipe(pug(
-      pretty: true
+      pretty: env == 'dev' ? true : false
       locals:
         config: config
   ).on('error', notify.onError((error) ->
