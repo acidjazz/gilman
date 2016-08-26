@@ -9,6 +9,7 @@ assign       = require('lodash.assign')
 source       = require('vinyl-source-stream')
 buffer       = require('vinyl-buffer')
 uglify       = require('gulp-uglify')
+clean        = require('gulp-clean-css')
 concat       = require('gulp-concat')
 stylus       = require('gulp-stylus')
 pug          = require('gulp-pug')
@@ -22,12 +23,11 @@ dirs =
   stylus: 'resources/stylus'
 
 objectify = ->
+  config = {}
   objectus 'config/', (error, result) ->
-    if error
-      notify error
+    notify error if error
     config = result
-    return
-  config
+  return config
 
 config = objectify()
 
@@ -66,7 +66,6 @@ gulp.task 'bundle', ->
   .pipe(uglify())
   .pipe(sourcemaps.write('./'))
   .pipe(gulp.dest('./public/js/'))
-  .pipe sync.stream()
 
 gulp.task 'bundle-reload', ['bundle'], (done) ->
   sync.reload()
@@ -84,16 +83,21 @@ gulp.task 'stylus', ->
         sound: 'Pop'
       }
     )))
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest('public/css'))
-    .pipe sync.reload()
+    .pipe clean()
+    .pipe sourcemaps.write('./')
+    .pipe gulp.dest('public/css/')
+    .pipe sync.stream()
 
   return
 
 gulp.task 'pug', ->
-  gulp.src(dirs.pug + '/**/index.pug').pipe(pug(
-    pretty: true
-    locals: config: config).on('error', notify.onError((error) ->
+
+  gulp.src(dirs.pug + '/**/index.pug')
+    .pipe(pug(
+      pretty: true
+      locals:
+        config: config
+  ).on('error', notify.onError((error) ->
     {
       title: 'Pug error: ' + error.name
       message: error.message
@@ -102,7 +106,8 @@ gulp.task 'pug', ->
   )).on('error', (error) ->
     console.log error
     return
-  )).pipe(gulp.dest('public')).pipe sync.stream()
+  )).pipe(gulp.dest('public'))
+    .pipe sync.stream()
   return
 
 watch = ->

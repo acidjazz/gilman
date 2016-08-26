@@ -87,7 +87,7 @@
       color gc(white1)
       transition color 0.2s linear 0s
 
-.info
+.infobar
   padding 30px 0
   text-align center
   > .label, > .copy, > .anvil, > .dot
@@ -104,7 +104,6 @@
   > a.copy:hover
     color gc(goldlight)
 
-
   > .dot
     width 5px
     height 5px
@@ -118,3 +117,50 @@
     width 40px
     height 40px
     margin -10px 20px
+
+.info
+  text-align left
+  > .right
+    float right
+    width 50vw
+    background url('/images/berkeleymap.jpg')
+    background-size cover
+    background-position 100%
+    > .inner
+      padding 200px 80px
+
+      > .title
+        gf(h1)
+        color gc(white1)
+        text-transform uppercase
+
+      > .copy
+        margin 50px 0 0 0
+        color gc(white1)
+
+
+      > .lochours
+        > .section
+          float left
+          width 50%
+          > .title
+            gf(h4)
+            text-transform uppercase
+            color gc(grey30)
+            padding 50px 0 20px 0
+          > .copy
+            color gc(white1)
+            > .right
+              float right
+        > .copy
+          color gc(white1)
+          margin 50px 0 0 0
+          > .dot
+            display inline-block
+            background-color gc(grey50)
+            width 5px
+            height 5px
+            border-radius 5px
+            margin 0 20px 5px 20px
+  > .left
+    float left
