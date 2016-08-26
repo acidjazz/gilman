@@ -14,6 +14,7 @@ concat       = require('gulp-concat')
 stylus       = require('gulp-stylus')
 pug          = require('gulp-pug')
 sourcemaps   = require('gulp-sourcemaps')
+gulpif       = require('gulp-if')
 fs           = require('fs')
 objectus     = require('objectus')
 
@@ -29,9 +30,16 @@ objectify = ->
     config = result
   return config
 
+
 config = objectify()
 
 gulp.task 'objectus', objectify
+
+
+env = 'dev'
+gulp.task 'goprod', ->
+  env = 'prod'
+  return
 
 gulp.task 'vendor', ->
   gulp.src([
@@ -62,10 +70,12 @@ gulp.task 'bundle', ->
   ))
   .pipe(source('bundle.js'))
   .pipe(buffer())
-  .pipe(sourcemaps.init())
+  .pipe(gulpif(env == 'dev',sourcemaps.init()))
   .pipe(uglify())
-  .pipe(sourcemaps.write('./'))
+  .pipe(gulpif(env == 'dev',sourcemaps.write('./')))
   .pipe(gulp.dest('./public/js/'))
+
+  return
 
 gulp.task 'bundle-reload', ['bundle'], (done) ->
   sync.reload()
@@ -74,7 +84,7 @@ gulp.task 'bundle-reload', ['bundle'], (done) ->
 
 gulp.task 'stylus', ->
   gulp.src(dirs.stylus + '/main.styl')
-    .pipe(sourcemaps.init())
+    .pipe(gulpif(env == 'dev',sourcemaps.init()))
     .pipe(stylus(rawDefine: config: config)
     .on('error', notify.onError((error) ->
       {
@@ -83,10 +93,10 @@ gulp.task 'stylus', ->
         sound: 'Pop'
       }
     )))
-    .pipe clean()
-    .pipe sourcemaps.write('./')
-    .pipe gulp.dest('public/css/')
-    .pipe sync.stream()
+    .pipe(clean())
+    .pipe(gulpif(env == 'dev',sourcemaps.write()))
+    .pipe(gulp.dest('public/css/'))
+    .pipe(sync.stream())
 
   return
 
@@ -133,6 +143,8 @@ gulp.task 'sync', ->
   watch()
   return
 
+
 gulp.task 'watch', watch
-gulp.task 'default', [ 'objectus', 'stylus', 'pug', 'vendor' ]
+gulp.task 'default', [ 'objectus', 'stylus', 'pug', 'vendor', 'bundle' ]
+gulp.task 'prod', [ 'goprod', 'objectus', 'stylus', 'pug', 'vendor', 'bundle' ]
 
