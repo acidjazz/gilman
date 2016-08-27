@@ -4,7 +4,8 @@
   "description": "the process of rapidy concepting",
   "main": "index.html",
   "scripts": {
-    "dev": "./node_modules/gulp/bin/gulp.js sync"
+    "dev": "./node_modules/gulp/bin/gulp.js sync",
+    "prod": "./node_modules/gulp/bin/gulp.js prod"
   },
   "repository": {
     "type": "git",

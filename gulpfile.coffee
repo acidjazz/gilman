@@ -39,7 +39,6 @@ gulp.task 'objectus', objectify
 
 gulp.task 'goprod', ->
   env = 'prod'
-  return
 
 gulp.task 'vendor', ->
   gulp.src([
@@ -48,7 +47,6 @@ gulp.task 'vendor', ->
   .pipe(gulpif(env != 'dev',uglify()))
   .pipe(concat('vendor.js'))
   .pipe gulp.dest('public/js/')
-  return
 
 customOpts =
   entries: [dirs.coffee + '/main.coffee']
@@ -60,7 +58,7 @@ opts = assign({}, watchify.args, customOpts)
 
 watcher = watchify(browserify(opts))
 
-bundle = (watch=true)->
+bundle = (watch=true) ->
 
   if watch == false then bundler = browserify(opts) else bundler = watcher
   bundler.bundle().on('error', notify.onError((error) ->
@@ -76,11 +74,11 @@ bundle = (watch=true)->
   .pipe(gulp.dest('./public/js/'))
   sync.reload()
 
+watcher.on 'update', bundle
+watcher.on 'log', gutil.log
 gulp.task 'bundle', bundle
 gulp.task 'bundle-once', ->
   bundle(false)
-watcher.on 'update', bundle
-watcher.on 'log', gutil.log
 
 gulp.task 'stylus', ->
   gulp.src(dirs.stylus + '/main.styl')
@@ -95,7 +93,6 @@ gulp.task 'stylus', ->
     .pipe(gulpif(env == 'dev',sourcemaps.write()))
     .pipe(gulp.dest('public/css/'))
     .pipe(sync.stream())
-  return
 
 gulp.task 'pug', ->
   gulp.src(dirs.pug + '/**/index.pug')
@@ -117,7 +114,6 @@ gulp.task 'pug', ->
     )))
     .pipe(gulp.dest('public'))
     .pipe sync.stream()
-  return
 
 watch = ->
   gulp.watch 'config/**/*', ['objectus','pug','stylus']
@@ -125,7 +121,6 @@ watch = ->
   gulp.watch dirs.pug + '/**/*.pug', ['pug']
   gulp.watch 'resources/vector/**/*.svg', ['pug']
   gulp.watch 'public/images/**/*', ['pug']
-  return
 
 gulp.task 'sync', ->
   bundle(true)
@@ -139,10 +134,7 @@ gulp.task 'sync', ->
       scroll: false
     scrollProportionally: false
   watch()
-  return
 
 gulp.task 'watch', watch
-
 gulp.task 'default', ['objectus','stylus','pug','vendor','bundle-once']
 gulp.task 'prod', ['goprod','default']
-
