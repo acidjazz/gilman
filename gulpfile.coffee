@@ -89,7 +89,7 @@ gulp.task 'stylus', ->
       message: error.message
       sound: 'Pop'
     )))
-    .pipe(clean())
+    .pipe(gulpif(env != 'dev',clean()))
     .pipe(gulpif(env == 'dev',sourcemaps.write()))
     .pipe(gulp.dest('public/css/'))
     .pipe(sync.stream())

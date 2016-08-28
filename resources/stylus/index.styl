@@ -235,6 +235,10 @@
         height 250px
         background-color gc(goldlight)
         margin 20px
+        for num in (1..4)
+          &.item_{num}
+            background url('/images/about' + num + '.jpg')
+            background-size contain
 
 .newsletter
   background-color gc(grey80)
