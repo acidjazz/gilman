@@ -29,6 +29,19 @@
       path, circle
         fill gc(white1)
 
+.cta
+  gf(h5)
+  cursor pointer
+  background-color gc(goldlight)
+  color gc(grey90)
+  padding 30px 80px
+  transition color 0.2s linear 0.2s
+  &:hover
+    color gc(white1)
+    transition color 0.2s linear 0s
+
+
+
 .top
   background url('/images/growler.jpg')
   background-size cover
@@ -91,20 +104,8 @@
 
   > .doors
     gf(h1)
-    margin 30px 0 0 0 
+    margin 30px 0 30px 0 
     color gc(grey15)
-
-  > .cta
-    gf(h5)
-    margin 30px 0 0 0
-    background-color gc(goldlight)
-    color gc(grey90)
-    display inline-block
-    padding 30px 80px
-    transition color 0.2s linear 0.2s
-    &:hover
-      color gc(white1)
-      transition color 0.2s linear 0s
 
 .infobar
   padding 30px 0
@@ -274,7 +275,7 @@
           width 320px
           margin 75px 0 0 0
 
-      > .submit
+      > .cta
         gf(h4)
         text-transform uppercase
         float left
