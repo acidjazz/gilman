@@ -14,6 +14,8 @@ block content
       .gsection.fonts
         .title Fonts
         each atts, name in config.font
-          .font(class="font_"+name) #{name} #{atts['font-family']} #{atts['font-size']}
+          .font(class="font_"+name) #{name} #{atts['font-family']}
+          .detail size: #{atts['font-size']}
+          .detail spacing: #{atts['font-size']}
 
       .clear

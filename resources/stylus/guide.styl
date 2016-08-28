@@ -23,9 +23,13 @@
             else
               border: 1px solid black
               color: black
+      > .detail
+        padding 0 0 0 20px
+        text-align right
       > .font
-        padding 10px 20px
+        padding 0 20px
         overflow-x scroll
         for name, font in config.font
           &.font_{name}
             gf(name)
+
