@@ -40,7 +40,8 @@
     color gc(white1)
     transition color 0.2s linear 0s
 
-
+.loading
+  background url('/images/loading.png') !important
 
 .top
   background url('/images/growler.jpg')
@@ -84,13 +85,20 @@
     > .item, > .dot
       display inline-block
     > .item
-      padding 0 10px
+      cursor pointer
+      padding 6px 10px 0 10px
       animation inFromTop 0.2s linear both
+      color gc(white1)
+      transition background-color 0.1s linear 0.2s
+      border-radius 5px
+      &:hover
+        background-color gc(goldlight)
+        transition background-color 0.1s linear 0s
       for i in 1..7
         &:nth-child({i})
           animation-delay unit(0.05*i, 's')
     > .dot
-      margin 0 0 5px 0
+      margin 0 10px 5px 10px
       padding 0
       width 5px
       height 5px

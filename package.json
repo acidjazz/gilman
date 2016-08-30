@@ -24,6 +24,7 @@
   "homepage": "https://github.com/acidjazz/gilman#readme",
   "dependencies": {
     "browser-sync": "^2.14.0",
+    "browserify-shim": "^3.8.12",
     "coffeeify": "^2.0.1",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^2.0.12",
@@ -41,5 +42,11 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"
+  },
+  "browserify": {
+    "transform": ["coffeeify","browserify-shim"]
+  },
+  "browserify-shim": {
+    "jQuery": "global:$"
   }
 }

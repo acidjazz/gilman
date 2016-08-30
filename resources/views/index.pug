@@ -2,7 +2,7 @@ extends extends/layout
 
 block content
 
-  .top
+  .top.loading
     .clear
 
     .logo
@@ -10,13 +10,13 @@ block content
     include partial/socials
     
     .menu
-      .item draft list
+      a.item draft list
       .item.dot
-      .item events &amp; growlers
+      a.item events &amp; growlers
       .item.dot
-      .item taproom
+      a.item taproom
       .item.dot
-      .item about
+      a.item about
 
     .soon opening soon
 
@@ -34,7 +34,7 @@ block content
     .copy Fri-Sun 11am-1am
 
   .info
-    .right
+    .right.loading
       .inner
         .title the taproom
         .copy Some words about how awesome your tasting room is and what a rad time they'll have when they visit.
@@ -47,15 +47,15 @@ block content
           a(href="tel:"+config.meta.email)=config.meta.email
 
     .left
-      .map
+      .map.loading
         .anvil
-      .gallery
+      .gallery.loading
         .item
 
   .clear 
         
   .about
-    .left
+    .left.loading
       .inner
         .title about us
         .subtitle our mission
@@ -65,7 +65,7 @@ block content
     .right
       .gallery
         each i in [1,2,3,4]
-          .item(class="item_" + i): .inner
+          .item(class="item_" + i).loading: .inner
 
     .clear
   .newsletter

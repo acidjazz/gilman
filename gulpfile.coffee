@@ -50,7 +50,7 @@ gulp.task 'vendor', ->
 
 customOpts =
   entries: [dirs.coffee + '/main.coffee']
-  transform: ['coffeeify']
+  #transform: ['coffeeify','browserify-shim']
   extensions: ['.coffee']
   debug: true
 
