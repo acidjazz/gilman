@@ -10,4 +10,4 @@ class Person
   get: (obj, key) ->
     console.log 'defineProperty', arguments
 
-module.exports = Person
+`export default Person`

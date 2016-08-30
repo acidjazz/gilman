@@ -1,4 +1,4 @@
-Person = require './person'
+`import Person from './person.coffee'`
 
 class Dood extends Person
 
@@ -8,4 +8,4 @@ class Dood extends Person
   doodMethod: ->
     console.log 'this fired from dood'
 
-module.exports = Dood
+`export default Dood`

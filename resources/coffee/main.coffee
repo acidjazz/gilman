@@ -1,3 +1,7 @@
-`import twofivesix from './256.coffee'`
-_ = new twofivesix()
+`import Dood from './dood.coffee'`
 
+
+bob = new Dood('bob', 46, 'male')
+
+bob.sayDetail()
+bob.doodMethod()
