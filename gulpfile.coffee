@@ -1,30 +1,35 @@
-gulp         = require('gulp')
+gulp         = require 'gulp'
 sync         = require('browser-sync').create()
-notify       = require('gulp-notify')
-browserify   = require('browserify')
-watchify     = require('watchify')
-coffeeify    = require('coffeeify')
-assign       = require('lodash.assign')
-source       = require('vinyl-source-stream')
-buffer       = require('vinyl-buffer')
-uglify       = require('gulp-uglify')
-clean        = require('gulp-clean-css')
-htmlmin      = require('gulp-htmlmin')
-concat       = require('gulp-concat')
-stylus       = require('gulp-stylus')
-pug          = require('gulp-pug')
-gutil        = require('gulp-util')
-sourcemaps   = require('gulp-sourcemaps')
-gulpif       = require('gulp-if')
-fs           = require('fs')
-objectus     = require('objectus')
+notify       = require 'gulp-notify'
+
+browserify   = require 'browserify'
+watchify     = require 'watchify'
+coffeeify    = require 'coffeeify'
+
+rollup       = require 'rollup-stream'
+rollupc      = require 'rollup-plugin-coffee-script'
+
+assign       = require 'lodash.assign'
+source       = require 'vinyl-source-stream'
+buffer       = require 'vinyl-buffer'
+uglify       = require 'gulp-uglify'
+clean        = require 'gulp-clean-css'
+htmlmin      = require 'gulp-htmlmin'
+concat       = require 'gulp-concat'
+stylus       = require 'gulp-stylus'
+pug          = require 'gulp-pug'
+gutil        = require 'gulp-util'
+sourcemaps   = require 'gulp-sourcemaps'
+gulpif       = require 'gulp-if'
+fs           = require 'fs'
+objectus     = require 'objectus'
 
 env = 'dev'
 
 dirs =
-  coffee: 'resources/coffee'
-  pug: 'resources/views'
-  stylus: 'resources/stylus'
+  coffee: './resources/coffee'
+  pug: './resources/views'
+  stylus: './resources/stylus'
 
 objectify = ->
   config = {}
@@ -48,9 +53,11 @@ gulp.task 'vendor', ->
   .pipe(concat('vendor.js'))
   .pipe gulp.dest('public/js/')
 
+
+###
 customOpts =
   entries: [dirs.coffee + '/main.coffee']
-  #transform: ['coffeeify','browserify-shim']
+  transform: ['coffeeify','browserify-shim']
   extensions: ['.coffee']
   debug: true
 
@@ -79,6 +86,23 @@ watcher.on 'log', gutil.log
 gulp.task 'bundle', bundle
 gulp.task 'bundle-once', ->
   bundle(false)
+
+###
+
+gulp.task 'rollup', ->
+  rollup(
+    entry: dirs.coffee + '/main.coffee'
+    plugins: [
+      rollupc()
+    ]
+    sourceMap: true
+  )
+  .pipe(source('bundle.js'))
+  .pipe(buffer())
+  .pipe(sourcemaps.init(loadMaps: true))
+  .pipe(sourcemaps.write())
+  .pipe(gulp.dest('public/js'))
+  .pipe sync.stream()
 
 gulp.task 'stylus', ->
   gulp.src(dirs.stylus + '/main.styl')
@@ -117,13 +141,14 @@ gulp.task 'pug', ->
 
 watch = ->
   gulp.watch 'config/**/*', ['objectus','pug','stylus']
+  gulp.watch dirs.coffee + '/**/*.coffee', ['rollup']
   gulp.watch dirs.stylus + '/**/*.styl', ['stylus']
   gulp.watch dirs.pug + '/**/*.pug', ['pug']
   gulp.watch 'resources/vector/**/*.svg', ['pug']
   gulp.watch 'public/images/**/*', ['pug']
 
 gulp.task 'sync', ->
-  bundle(true)
+  # bundle(true)
   sync.init
     notify: false
     open: false

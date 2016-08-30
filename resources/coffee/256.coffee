@@ -87,7 +87,6 @@ class twofivesix
       :: http://256.io/
       :: #{config.meta.repo}
     """
-
     console.log ascii, "color: grey; font-family: Menlo, monospace;"
 
   detect: ->
@@ -95,4 +94,4 @@ class twofivesix
       @llc()
       clearInterval @console
 
-module.exports = twofivesix
+`export default twofivesix`
