@@ -1,7 +1,8 @@
-`import Dood from './dood.coffee'`
+###
+`import twofivesix from './256.coffee'`
+_ = new twofivesix()
+###
 
+`import Preload from './preload.coffee'`
 
-bob = new Dood('bob', 46, 'male')
-
-bob.sayDetail()
-bob.doodMethod()
+# pre = new Preload()
