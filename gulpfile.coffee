@@ -2,14 +2,9 @@ gulp         = require 'gulp'
 sync         = require('browser-sync').create()
 notify       = require 'gulp-notify'
 
-browserify   = require 'browserify'
-watchify     = require 'watchify'
-coffeeify    = require 'coffeeify'
-
 rollup       = require 'rollup-stream'
 rollupc      = require 'rollup-plugin-coffee-script'
 
-assign       = require 'lodash.assign'
 source       = require 'vinyl-source-stream'
 buffer       = require 'vinyl-buffer'
 uglify       = require 'gulp-uglify'
@@ -53,54 +48,25 @@ gulp.task 'vendor', ->
   .pipe(concat('vendor.js'))
   .pipe gulp.dest('public/js/')
 
-
-###
-customOpts =
-  entries: [dirs.coffee + '/main.coffee']
-  transform: ['coffeeify','browserify-shim']
-  extensions: ['.coffee']
-  debug: true
-
-opts = assign({}, watchify.args, customOpts)
-
-watcher = watchify(browserify(opts))
-
-bundle = (watch=true) ->
-
-  if watch == false then bundler = browserify(opts) else bundler = watcher
-  bundler.bundle().on('error', notify.onError((error) ->
-    title: 'Browserify Error'
-    message: '<%= error.message %>'
-    sound: 'Pop'
-  ))
-  .pipe(source('bundle.js'))
-  .pipe(buffer())
-  .pipe(gulpif(env == 'dev',sourcemaps.init(loadMaps: true)))
-  .pipe(gulpif(env != 'dev',uglify()))
-  .pipe(gulpif(env == 'dev',sourcemaps.write()))
-  .pipe(gulp.dest('./public/js/'))
-  sync.reload()
-
-watcher.on 'update', bundle
-watcher.on 'log', gutil.log
-gulp.task 'bundle', bundle
-gulp.task 'bundle-once', ->
-  bundle(false)
-
-###
-
 gulp.task 'rollup', ->
   rollup(
     entry: dirs.coffee + '/main.coffee'
     plugins: [
       rollupc()
     ]
-    sourceMap: true
+    sourceMap: (env == 'dev')
   )
+    .on('error', notify.onError((error) ->
+      title: 'Coffee error: ' + error.name
+      message: error.message
+      sound: 'Pop'
+    ))
+
   .pipe(source('bundle.js'))
   .pipe(buffer())
-  .pipe(sourcemaps.init(loadMaps: true))
-  .pipe(sourcemaps.write())
+  .pipe(gulpif(env == 'dev', sourcemaps.init(loadMaps: true)))
+  .pipe(gulpif(env != 'dev',uglify()))
+  .pipe(gulpif(env == 'dev',sourcemaps.write()))
   .pipe(gulp.dest('public/js'))
   .pipe sync.stream()
 
@@ -148,7 +114,6 @@ watch = ->
   gulp.watch 'public/images/**/*', ['pug']
 
 gulp.task 'sync', ->
-  # bundle(true)
   sync.init
     notify: false
     open: false
@@ -161,5 +126,5 @@ gulp.task 'sync', ->
   watch()
 
 gulp.task 'watch', watch
-gulp.task 'default', ['objectus','stylus','pug','vendor','bundle-once']
+gulp.task 'default', ['objectus','stylus','pug','vendor','rollup']
 gulp.task 'prod', ['goprod','default']
