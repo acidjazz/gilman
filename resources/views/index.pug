@@ -9,15 +9,24 @@ block content
     .logo
 
     include partial/socials
-    
-    .menu
-      a.item draft list
-      .item.dot
-      a.item events &amp; growlers
-      .item.dot
-      a.item taproom
-      .item.dot
-      a.item about
+
+    .burger.on
+      .lines
+        span
+        span
+        span
+        span
+      .clear
+      
+    .menu.off
+      .inner
+        a.item draft list
+        .item.dot
+        a.item events &amp; growlers
+        .item.dot
+        a.item taproom
+        .item.dot
+        a.item about
 
     .soon opening soon
 
@@ -26,9 +35,10 @@ block content
     a.cta(href='/') see our beers
 
   .infobar
+    .anvil.m
     .label taproom
     a.copy(href=config.meta.address.map,target='_new') #{config.meta.address.street}, #{config.meta.address.city}, #{config.meta.address.state}, #{config.meta.address.zip}
-    .anvil
+    .anvil.d
     .label hours
     .copy Mon-Thu 11am-11pm
     .dot

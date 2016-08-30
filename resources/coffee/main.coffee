@@ -1,8 +1,5 @@
-###
-`import twofivesix from './256.coffee'`
-_ = new twofivesix()
-###
+`import Index from './index.coffee'`
 
-`import Preload from './preload.coffee'`
+index = new Index()
 
-# pre = new Preload()
+

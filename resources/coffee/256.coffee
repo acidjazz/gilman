@@ -1,4 +1,4 @@
-class twofivesix
+_ =
 
   constructor: ->
     @console = setInterval(@detect.bind(@), 200)
@@ -94,4 +94,4 @@ class twofivesix
       @llc()
       clearInterval @console
 
-`export default twofivesix`
+`export default _`

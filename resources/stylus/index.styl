@@ -1,4 +1,4 @@
- .lochours
+.lochours
   > .section
     float left
     width 50%
@@ -30,11 +30,12 @@
         fill gc(white1)
 
 .cta
-  gf(h5)
+  gf(h4)
+  text-transform uppercase
   cursor pointer
   background-color gc(goldlight)
   color gc(grey90)
-  padding 30px 80px
+  padding 30px 80px 25px 80px
   transition color 0.2s linear 0.2s
   &:hover
     color gc(white1)
@@ -79,28 +80,29 @@
     gf(h4)
     margin 50px 0 0 0
     color gc(grey15)
-    > .item, > .dot
-      display inline-block
-    > .item
-      cursor pointer
-      padding 6px 10px 0 10px
-      animation inFromTop 0.2s linear both
-      color gc(white1)
-      transition background-color 0.1s linear 0.2s
-      border-radius 5px
-      &:hover
-        background-color gc(goldlight)
-        transition background-color 0.1s linear 0s
-      for i in 1..7
-        &:nth-child({i})
-          animation-delay unit(0.05*i, 's')
-    > .dot
-      margin 0 10px 5px 10px
-      padding 0
-      width 5px
-      height 5px
-      background-color gc(white1)
-      border-radius 50%
+    > .inner
+      > .item, > .dot
+        display inline-block
+      > .item
+        cursor pointer
+        padding 6px 10px 0 10px
+        animation inFromTop 0.2s linear both
+        color gc(white1)
+        transition background-color 0.1s linear 0.2s
+        border-radius 5px
+        &:hover
+          background-color gc(goldlight)
+          transition background-color 0.1s linear 0s
+        for i in 1..7
+          &:nth-child({i})
+            animation-delay unit(0.05*i, 's')
+      > .dot
+        margin 0 10px 5px 10px
+        padding 0
+        width 5px
+        height 5px
+        background-color gc(white1)
+        border-radius 50%
 
   > .soon
     gf(h4)
@@ -121,7 +123,7 @@
   > .label
     color gc(grey30)
     text-transform uppercase
-    gf(h5)
+    gf(h4)
     padding 0 10px 0 0
   > .copy
     color gc(grey15)
@@ -142,6 +144,10 @@
     width 40px
     height 40px
     margin -10px 20px
+    &.d
+      display inline-block
+    &.m
+      display none
 
 .info
   text-align left
@@ -281,8 +287,6 @@
           margin 75px 0 0 0
 
       > .cta
-        gf(h4)
-        text-transform uppercase
         float left
         padding 25px 50px 15px 50px
         background-color gc(goldlight)
@@ -328,4 +332,9 @@
             > svg
               path, circle
                 fill gc(goldlight)
+
+
+@media all and (min-width: 1px) and (max-width: 1000px)
+  @import mobile-1k
+
 

@@ -21,9 +21,10 @@ objectus     = require 'objectus'
 env = 'dev'
 
 dirs =
-  coffee: './resources/coffee'
-  pug: './resources/views'
-  stylus: './resources/stylus'
+  coffee: 'resources/coffee'
+  pug:    'resources/views'
+  stylus: 'resources/stylus'
+  svg:    'resources/vector'
 
 objectify = ->
   config = {}
@@ -109,7 +110,7 @@ watch = ->
   gulp.watch dirs.coffee + '/**/*.coffee', ['rollup']
   gulp.watch dirs.stylus + '/**/*.styl', ['stylus']
   gulp.watch dirs.pug + '/**/*.pug', ['pug']
-  gulp.watch 'resources/vector/**/*.svg', ['pug']
+  gulp.watch dirs.svg + '/**/*.svg', ['pug']
   gulp.watch 'public/images/**/*', ['pug']
 
 gulp.task 'sync', ->
