@@ -14,5 +14,3 @@ class Preload
     url = $p.css 'background-image'
     $p.remove()
     return url
-
-`export default Preload`

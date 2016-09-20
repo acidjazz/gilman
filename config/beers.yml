@@ -1,0 +1,29 @@
+---
+- image: beer.jpg
+  name: Gilman Pilsner 1
+  info: "ABV: 4.5% - IBUS: 16"
+  description: A short description goes here, lorem ipsum sit amet lorem ipsum dolor sit amet lorem.
+- image: beer.jpg
+  name: Gilman Pilsner 2
+  info: "ABV: 4.5% - IBUS: 16"
+  description: A short description goes here, lorem ipsum sit amet lorem ipsum dolor sit amet lorem.
+- image: beer.jpg
+  name: Gilman Pilsner 3
+  info: "ABV: 4.5% - IBUS: 16"
+  description: A short description goes here, lorem ipsum sit amet lorem ipsum dolor sit amet lorem.
+- image: beer.jpg
+  name: Gilman Pilsner 4
+  info: "ABV: 4.5% - IBUS: 16"
+  description: A short description goes here, lorem ipsum sit amet lorem ipsum dolor sit amet lorem.
+- image: beer.jpg
+  name: Gilman Pilsner 5
+  info: "ABV: 4.5% - IBUS: 16"
+  description: A short description goes here, lorem ipsum sit amet lorem ipsum dolor sit amet lorem.
+- image: beer.jpg
+  name: Gilman Pilsner 6
+  info: "ABV: 4.5% - IBUS: 16"
+  description: A short description goes here, lorem ipsum sit amet lorem ipsum dolor sit amet lorem.
+- image: beer.jpg
+  name: Gilman Pilsner 7
+  info: "ABV: 4.5% - IBUS: 16"
+  description: A short description goes here, lorem ipsum sit amet lorem ipsum dolor sit amet lorem.
