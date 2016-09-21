@@ -13,8 +13,16 @@ Index =
       slidesToScroll: 1
 
   handlers: ->
-    $('.top .burger').click @mobile
+    $('.top .burger').click @burgerHandler
+    $('.menu .item').click @menuHandler
 
-  mobile: ->
+  burgerHandler: ->
     _.swap '.top > .burger'
     _.swap '.top > .menu'
+
+
+  menuHandler: ->
+    _.off '.top > .menu'
+    _.on '.top > .burger'
+    item = $(this).data 'item'
+    $.scrollTo $(".#{item}"), 500

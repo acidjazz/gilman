@@ -20,13 +20,13 @@ block content
       
     .menu.off
       .inner
-        a.item draft list
+        a.item(data-item='beers') draft list
         .item.dot
-        a.item events &amp; growlers
+        //a.itme(data-item='events') events &amp; growlers
+        //.item.dot
+        a.item(data-item='info') taproom
         .item.dot
-        a.item taproom
-        .item.dot
-        a.item about
+        a.item(data-item='about') about
 
     .soon opening soon
 
@@ -83,9 +83,8 @@ block content
         .anvil
       .gallery.loading
         .item
+      .clear 
 
-  .clear 
-  .clear 
         
   .about
     .left.loading
