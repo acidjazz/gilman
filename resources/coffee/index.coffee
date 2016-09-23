@@ -15,6 +15,7 @@ Index =
   handlers: ->
     $('.top .burger').click @burgerHandler
     $('.menu .item, a.cta').click @menuHandler
+    $('.form .cta').click @newsletterHandler
 
   burgerHandler: ->
     _.swap '.top > .burger'
@@ -26,3 +27,6 @@ Index =
     _.on '.top > .burger'
     item = $(this).data 'item'
     $.scrollTo $(".#{item}"), 500
+
+  newsletterHandler: ->
+    $(this).parent().submit()
