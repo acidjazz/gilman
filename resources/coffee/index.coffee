@@ -14,7 +14,7 @@ Index =
 
   handlers: ->
     $('.top .burger').click @burgerHandler
-    $('.menu .item').click @menuHandler
+    $('.menu .item, a.cta').click @menuHandler
 
   burgerHandler: ->
     _.swap '.top > .burger'
