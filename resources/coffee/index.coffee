@@ -1,16 +1,28 @@
-`import _ from './256.coffee'`
-
-_.constructor()
-
-class Index
-  constructor: ->
+Index =
+  options: {}
+  i: ->
     @handlers()
 
-  handlers: ->
-    $('.top .burger').click @mobile
+    width = $(document).width()
 
-  mobile: ->
+    amt = Math.floor width / 350
+
+    $('.beerlist > .inner').slick
+      infinite: true
+      slidesToShow: amt
+      slidesToScroll: 1
+
+  handlers: ->
+    $('.top .burger').click @burgerHandler
+    $('.menu .item').click @menuHandler
+
+  burgerHandler: ->
     _.swap '.top > .burger'
     _.swap '.top > .menu'
 
-`export default Index`
+
+  menuHandler: ->
+    _.off '.top > .menu'
+    _.on '.top > .burger'
+    item = $(this).data 'item'
+    $.scrollTo $(".#{item}"), 500

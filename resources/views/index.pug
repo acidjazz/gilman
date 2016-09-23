@@ -20,13 +20,13 @@ block content
       
     .menu.off
       .inner
-        a.item draft list
+        a.item(data-item='beers') draft list
         .item.dot
-        a.item events &amp; growlers
+        //a.itme(data-item='events') events &amp; growlers
+        //.item.dot
+        a.item(data-item='info') taproom
         .item.dot
-        a.item taproom
-        .item.dot
-        a.item about
+        a.item(data-item='about') about
 
     .soon opening soon
 
@@ -43,6 +43,27 @@ block content
     .copy Mon-Thu 11am-11pm
     .dot
     .copy Fri-Sun 11am-1am
+
+  .beers
+    .title draft list
+    .description Gilman IPA, Berkeley Pilsner, Ashby Shout and Telegraph Wehat make up our core beers.  In addition, we brew one-offs, seasonals and collaborations throughout the year.
+
+    .clear
+
+    .beerlist
+      //.nav.left.off
+        include ../vector/arrow.svg
+      //.nav.right.on
+        include ../vector/arrow.svg
+      .inner
+        each beer in config.beers
+          .beer
+            .inner
+              .beer_image
+                img(src="/images/" + beer.image)
+              .beer_name=beer.name
+              .beer_info=beer.info
+              .beer_description=beer.description
 
   .info
     .right.loading
@@ -62,8 +83,8 @@ block content
         .anvil
       .gallery.loading
         .item
+      .clear 
 
-  .clear 
         
   .about
     .left.loading
@@ -106,3 +127,6 @@ block content
 
           include partial/socials
       .clear
+
+  script.
+    Index.i()

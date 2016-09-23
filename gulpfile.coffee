@@ -2,8 +2,7 @@ gulp         = require 'gulp'
 sync         = require('browser-sync').create()
 notify       = require 'gulp-notify'
 
-rollup       = require 'rollup-stream'
-rollupc      = require 'rollup-plugin-coffee-script'
+coffee       = require 'gulp-coffee'
 
 source       = require 'vinyl-source-stream'
 buffer       = require 'vinyl-buffer'
@@ -31,6 +30,7 @@ objectify = ->
   objectus 'config/', (error, result) ->
     notify error if error
     config = result
+    fs.writeFileSync(dirs.coffee + '/config.coffee', "config = " + JSON.stringify(config) + ";", 'utf8')
   return config
 
 config = objectify()
@@ -41,34 +41,40 @@ gulp.task 'goprod', ->
   env = 'prod'
 
 gulp.task 'vendor', ->
+
   gulp.src([
     'node_modules/jquery/dist/jquery.js',
+    'node_modules/slick-carousel/slick/slick.js',
+    'node_modules/jquery.scrollto/jquery.scrollTo.js',
   ])
+
   .pipe(gulpif(env != 'dev',uglify()))
   .pipe(concat('vendor.js'))
   .pipe gulp.dest('public/js/')
 
-gulp.task 'rollup', ->
-  rollup(
-    entry: dirs.coffee + '/main.coffee'
-    plugins: [
-      rollupc()
-    ]
-    sourceMap: (env == 'dev')
-  )
-    .on('error', notify.onError((error) ->
-      title: 'Coffee error: ' + error.name
-      message: error.message
-      sound: 'Pop'
-    ))
+  gulp.src([
+    'node_modules/slick-carousel/slick/slick.css',
+    'node_modules/slick-carousel/slick/slick-theme.css',
+  ])
 
-  .pipe(source('bundle.js'))
-  .pipe(buffer())
-  .pipe(gulpif(env == 'dev', sourcemaps.init(loadMaps: true)))
-  .pipe(gulpif(env != 'dev',uglify()))
-  .pipe(gulpif(env == 'dev',sourcemaps.write()))
-  .pipe(gulp.dest('public/js'))
-  .pipe sync.stream()
+  .pipe(gulpif(env != 'dev',clean()))
+  .pipe(concat('vendor.css'))
+  .pipe gulp.dest('public/css/')
+
+gulp.task 'coffee', ->
+  gulp.src(dirs.coffee + '/*.coffee')
+    .pipe(gulpif(env == 'dev', sourcemaps.init(loadMaps: true)))
+    .pipe(coffee(bare: true)
+      .on('error', notify.onError((error) ->
+        title: "Coffee error"
+        message: error.message + "\r\n" + error.filename + ':' + error.location.first_line
+        sound: 'Pop'
+      )))
+    .pipe(gulpif(env != 'dev',uglify()))
+    .pipe(concat('bundle.js'))
+    .pipe(gulpif(env == 'dev',sourcemaps.write()))
+    .pipe(gulp.dest('./public/js'))
+    .pipe(sync.stream())
 
 gulp.task 'stylus', ->
   gulp.src(dirs.stylus + '/main.styl')
@@ -93,11 +99,7 @@ gulp.task 'pug', ->
     ).on('error', notify.onError((error) ->
       title: 'Pug error: ' + error.name
       message: error.message
-      sound: 'Pop'
-    )).on('error', (error) ->
-      console.log error
-      return
-    ))
+      sound: 'Pop')))
     .pipe(gulpif(env != 'dev',htmlmin(
       collapseWhitespace: true
       processScripts: ['application/ld+json', 'text/javascript']
@@ -107,7 +109,7 @@ gulp.task 'pug', ->
 
 watch = ->
   gulp.watch 'config/**/*', ['objectus','pug','stylus']
-  gulp.watch dirs.coffee + '/**/*.coffee', ['rollup']
+  gulp.watch dirs.coffee + '/**/*.coffee', ['coffee']
   gulp.watch dirs.stylus + '/**/*.styl', ['stylus']
   gulp.watch dirs.pug + '/**/*.pug', ['pug']
   gulp.watch dirs.svg + '/**/*.svg', ['pug']
@@ -126,5 +128,5 @@ gulp.task 'sync', ->
   watch()
 
 gulp.task 'watch', watch
-gulp.task 'default', ['objectus','stylus','pug','vendor','rollup']
+gulp.task 'default', ['objectus','stylus','pug','vendor','coffee']
 gulp.task 'prod', ['goprod','default']
