@@ -16,7 +16,7 @@
   > .social
     transition background-color 0.1s linear 0.2s
     &:hover
-      background-color gc(goldlight)
+      background-color gc(black1)
       transition background-color 0.1s linear
     animation inFromRight 0.2s ease-in-out 0.4s both
     &:nth-child(2)
@@ -52,16 +52,15 @@
   position relative
 
   > .logo
-    w = 389
-    h = 240
-    width unit(w/3, px)
-    height unit(h/3, px)
+    width 200px
+    height 120px
     background url('/images/logo.png')
-    background-size cover
+    background-repeat no-repeat
+    background-size contain
 
     animation inFromLeft 0.2s ease-in-out 0.5s both
     position absolute
-    top 20px
+    top 30px
     left 30px
 
   > .socials
@@ -74,45 +73,54 @@
       width 20px
       height 20px
       padding 5px
-      border-radius 4px
+      border-radius 2px
 
   > .menu
     gf(h5)
     margin 50px 0 0 0
     color gc(grey15)
     > .inner
-      > .item, > .dot
+      > .item, > .itemdot
         display inline-block
       > .item
         cursor pointer
-        padding 6px 10px 0 10px
+        padding 10px 10px 4px 10px
         animation inFromTop 0.2s linear both
         color gc(white1)
         transition background-color 0.1s linear 0.2s
-        border-radius 5px
+        border-radius 2px
         &:hover
           background-color gc(black1)
           transition background-color 0.1s linear 0s
         for i in 1..7
           &:nth-child({i})
             animation-delay unit(0.05*i, 's')
-      > .dot
-        margin 0 10px 5px 10px
+      > .itemdot
+        margin 0 10px 3px 10px
         padding 0
         width 5px
         height 5px
         background-color gc(white1)
         border-radius 50%
 
-  > .soon
-    gf(h5)
-    margin-top 40vh
-    color gc(grey15)
-
-  > .doors
-    gf(h1)
-    margin 30px 0 30px 0 
-    color gc(grey15)
+  > .centered
+    position absolute
+    height 225px
+    width  890px
+    top 50%
+    left 50%
+    margin-top -112px
+    margin-left -445px
+    > .soon
+      gf(h5)
+      color gc(grey15)
+      margin 0 0 24px 0
+    > .doors
+      gf(h1)
+      color gc(grey15)
+      margin 0 0 60px 0
+    > .a.cta
+      border 1px solid red
 
 .infobar
   padding 30px 0
@@ -169,13 +177,14 @@
     gf(h1)
     text-transform uppercase
     float left
-    margin 100px 0 0 100px
+    margin 140px 0 0 60px
+    line-height 50px
   > .description
-    padding 100px 100px 0 500px
+    padding 140px 100px 0 500px
   > .beerlist
     > .inner
         margin 0 60px
-        padding 60px 0
+        padding 20px 0
         .beer
           margin 60px 10px
           > .inner
@@ -187,7 +196,7 @@
                 width 100%
             > .beer_name
               gf(h4)
-              padding 10px 0 0 0
+              padding 24px 0 0 0
             > .beer_info
               padding 10px 0 0 0
               color gc(grey50)
@@ -263,7 +272,7 @@
     float left
     width 50%
     > .inner
-      padding 100px 80px
+      padding 140px 80px 100px 80px
       > .title
         gf(h1)
         color gc(white1)
@@ -280,16 +289,16 @@
   > .right
     float right
     width 50%
-    height 600px
+    height 710px
     > .gallery
-      margin 20px
+      margin 40px 0 0 0
       text-align center
       > .item
         display inline-block
-        width 250px
-        height 250px
+        width 300px
+        height 300px
         background-color gc(goldlight)
-        margin 20px
+        margin 5px
         for num in (1..4)
           &.item_{num}
             background url('/images/about' + num + '.jpg')
@@ -309,12 +318,12 @@
       height 200px
       width 300px
       text-align center
-      opacity 0.1
+      opacity 1
       > .copy
         gf(h5)
         text-transform uppercase
         color gc(grey30)
-        padding 90px 0 0 0
+        padding 100px 0 0 0
     > .form
       float left
       > .input
