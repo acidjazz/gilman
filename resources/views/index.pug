@@ -96,10 +96,10 @@ block content
         include partial/lochours
         
         .copy Call: 
-          a(href="tel:"+config.meta.address.phone)=config.meta.address.phone
+          a(href='tel:'+config.meta.address.phone)=config.meta.address.phone
           .dot
           | Email: 
-          a(href="tel:"+config.meta.email)=config.meta.email
+          a(href='tel:'+config.meta.email)=config.meta.email
 
     .left
       .map.loading
@@ -144,9 +144,9 @@ block content
         .inner
           .copys
             .copy Call: 
-              a(href="tel:#{config.meta.address.phone}")=config.meta.address.phone
+              a(href='tel:'+config.meta.address.phone)=config.meta.address.phone
             .copy Email: 
-              a(href="mailto:#{config.meta.email}")=config.meta.email
+              a(href='mailto:'+config.meta.email)=config.meta.email
 
           include partial/socials
       .clear
