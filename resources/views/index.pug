@@ -3,7 +3,9 @@ extends extends/layout
 block content
 
   .top
-    .preload
+    video(playsinline,autoplay,muted,loop,poster="/images/growler.jpg")
+      source(src="/vid/barrel.mp4",type="video/mp4")
+
     .clear
 
     .logo
@@ -22,8 +24,8 @@ block content
       .inner
         a.item(data-item='beers') draft list
         .itemdot
-        //a.itme(data-item='events') events &amp; growlers
-        //.item.dot
+        a.item(data-item='events') events 
+        .itemdot
         a.item(data-item='info') taproom
         .itemdot
         a.item(data-item='about') about
@@ -63,7 +65,39 @@ block content
               .beer_name=beer.name
               .beer_info=beer.info
               .beer_description=beer.description
+  .eventsmerch
+    .inner
+      .events
+        .title events
+        .clear
+        .eventlist
 
+          .event
+            .date
+              .month SEP
+              .day 23
+            .image(style="background-image: url(https://s3.amazonaws.com/basal/2bc3bae5283534e0cb66a2cba28680c8.jpeg);")
+            .title owiejr oiwejr owiejr 
+            .description oepweorj powejr oepweorj powejr oepweorj powejr oepweorj powejr oepweorj powejr oepweorj powejr
+            .clear
+          .clear
+
+          .event
+            .date
+              .month SEP
+              .day 23
+            .image(style="background-image: url(https://s3.amazonaws.com/basal/2bc3bae5283534e0cb66a2cba28680c8.jpeg);")
+            .title owiejr oiwejr owiejr 
+            .description oepweorj powejr oepweorj powejr oepweorj powejr oepweorj powejr oepweorj powejr oepweorj powejr
+            .clear
+          .clear
+
+      .growlers
+        .title growlers
+        .clear
+        .image
+      .clear
+ 
   .info
     .right.loading
       .inner

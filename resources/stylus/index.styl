@@ -42,15 +42,23 @@
     transition color 0.2s linear 0s
 
 .top
-  background url('/images/growler.jpg')
   background-size cover
   background-position center
   height calc(100vh - 86px)
   min-height 600px
   text-align center
   text-transform uppercase
+  overflow hidden
   position relative
-
+  > video
+    position absolute
+    min-width 100%
+    min-height 100%
+    top 50%
+    left 50%
+    width auto
+    height auto
+    transform translate(-50%, -50%)
   > .logo
     width 200px
     height 120px
@@ -89,6 +97,7 @@
         color gc(white1)
         transition background-color 0.1s linear 0.2s
         border-radius 2px
+        background-color rgba(gc(black1), 0.3)
         &:hover
           background-color gc(black1)
           transition background-color 0.1s linear 0s
@@ -200,6 +209,75 @@
               color gc(grey50)
             > .beer_description
               padding 10px 0 0 0
+
+.eventsmerch
+  background url('/images/metal.jpg')
+  background-size cover
+  background-position 100%
+  padding 0 0 60px 0
+  border 1px solid transparent
+  > .inner
+    width 1280px
+    margin auto
+    > .events
+      width 580px
+      float left
+      margin 0 20px 0 0 
+      > .title
+        gf(h1)
+        text-transform uppercase
+        float left
+        padding 140px 0 60px 60px
+        line-height 50px
+        color gc(white1)
+      > .eventlist
+        > .event
+          padding 30px 30px 30px 60px
+          margin 0 0 30px 60px
+          background-color gc(white1)
+          position relative
+          > .date
+            background-color gc(black1)
+            float left
+            text-align center
+            padding 20px
+            border-radius 50%
+            width 60px
+            height 60px
+            margin 0 0 0 -110px
+            > .month
+              color gc(goldlight)
+              gf(h5)
+            > .day
+              color gc(white1)
+              gf(h2-light)
+              letter-spacing 6px
+          > .title
+            gf(h4)
+            margin 0 220px 20px 0
+          > .description
+            margin 0 220px 0 0
+          > .image
+            float right
+            width 200px
+            height 240px
+            background-size cover
+            background-position 50% 50%
+    > .growlers
+      width 580px
+      float left
+      margin 0 0 0 20px
+      > .title
+        gf(h1)
+        text-transform uppercase
+        float left
+        padding 140px 0 60px 0px
+        line-height 50px
+        color gc(white1)
+      > .image
+        background-color gc(black1)
+        width 580px
+        height 630px
 
 .info
   text-align left

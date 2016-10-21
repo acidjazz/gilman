@@ -1,5 +1,7 @@
 .top
   height 100vh
+  > video
+    height 100%
   > .logo
     top 20px
     left 20px
@@ -74,13 +76,15 @@
 
   > .centered
     width 80%
-    height 250px
+    height 350px
     margin-top -100px
     margin-left -40%
     > .doors
       gf(h2)
     > a.cta
+      display block
       padding 30px 15% 25px 15%
+      margin 150px 5px 0 5px
 
 .infobar
   > .anvil.d
@@ -171,8 +175,42 @@
       padding 0
       .beer
         margin 20px 10px 20px 10px
+.eventsmerch
+  > .inner
+    width auto
+    > .events
+      width auto
+      float none
+      margin 20px
+      > .title
+        padding 40px 0 0 0
+        gf(h2)
+      > .eventlist
+        > .event
+          padding 20px
+          margin 40px 0 20px 0
+          float none
+          > .date
+            margin -70px 0 0 -30px
+          > .title
+            margin 10px
+          > .description
+            margin 10px
+          > .image
+            float none
+            width 100%
 
-.slick-arrow
+    > .growlers
+      width auto
+      float none
+      margin 20px
+      > .title
+        padding 40px 0 0 0
+        gf(h2)
+      > .image
+        width auto
+        height 320px
+slick-arrow
   width 20px
   height 20px
   z-index 100

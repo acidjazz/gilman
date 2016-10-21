@@ -25,15 +25,16 @@ dirs =
   stylus: 'resources/stylus'
   svg:    'resources/vector'
 
-objectify = ->
-  config = {}
+config = {}
+objectify = (complete) ->
   objectus 'config/', (error, result) ->
     notify error if error
     config = result
     fs.writeFileSync(dirs.coffee + '/config.coffee', "config = " + JSON.stringify(config) + ";", 'utf8')
-  return config
+    complete?()
+ 
 
-config = objectify()
+objectify()
 
 gulp.task 'objectus', objectify
 
@@ -77,39 +78,41 @@ gulp.task 'coffee', ->
     .pipe(sync.stream())
 
 gulp.task 'stylus', ->
-  gulp.src(dirs.stylus + '/main.styl')
-    .pipe(gulpif(env == 'dev',sourcemaps.init(loadMaps: true)))
-    .pipe(stylus(rawDefine: config: config)
-    .on('error', notify.onError((error) ->
-      title: 'Stylus error: ' + error.name
-      message: error.message
-      sound: 'Pop'
-    )))
-    .pipe(gulpif(env != 'dev',clean()))
-    .pipe(gulpif(env == 'dev',sourcemaps.write()))
-    .pipe(gulp.dest('public/css/'))
-    .pipe(sync.stream())
+  objectify ->
+    gulp.src(dirs.stylus + '/main.styl')
+      .pipe(gulpif(env == 'dev',sourcemaps.init(loadMaps: true)))
+      .pipe(stylus(rawDefine: config: config)
+      .on('error', notify.onError((error) ->
+        title: 'Stylus error: ' + error.name
+        message: error.message
+        sound: 'Pop'
+      )))
+      .pipe(gulpif(env != 'dev',clean()))
+      .pipe(gulpif(env == 'dev',sourcemaps.write()))
+      .pipe(gulp.dest('public/css/'))
+      .pipe(sync.stream())
 
 gulp.task 'pug', ->
-  gulp.src(dirs.pug + '/**/index.pug')
-    .pipe(pug(
-      pretty: true
-      locals:
-        config: config
-    ).on('error', notify.onError((error) ->
-      title: 'Pug error: ' + error.name
-      message: error.message
-      sound: 'Pop')))
-    .pipe(gulpif(env != 'dev',htmlmin(
-      collapseWhitespace: true
-      processScripts: ['application/ld+json', 'text/javascript']
-    )))
-    .pipe(gulp.dest('public'))
-    .pipe sync.stream()
+  objectify ->
+    gulp.src(dirs.pug + '/**/index.pug')
+      .pipe(pug(
+        pretty: true
+        locals:
+          config: config
+      ).on('error', notify.onError((error) ->
+        title: 'Pug error: ' + error.name
+        message: error.message
+        sound: 'Pop')))
+      .pipe(gulpif(env != 'dev',htmlmin(
+        collapseWhitespace: true
+        processScripts: ['application/ld+json', 'text/javascript']
+      )))
+      .pipe(gulp.dest('public'))
+      .pipe sync.stream()
 
 watch = ->
   gulp.watch 'config/**/*', ['objectus','pug','stylus']
-  gulp.watch dirs.coffee + '/**/*.coffee', ['coffee']
+  gulp.watch [dirs.coffee + '/**/*.coffee','!' + dirs.coffee + '/config.coffee'], ['coffee']
   gulp.watch dirs.stylus + '/**/*.styl', ['stylus']
   gulp.watch dirs.pug + '/**/*.pug', ['pug']
   gulp.watch dirs.svg + '/**/*.svg', ['pug']

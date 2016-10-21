@@ -30,3 +30,5 @@ Index =
 
   newsletterHandler: ->
     $(this).parent().submit()
+
+
