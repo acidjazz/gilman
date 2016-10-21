@@ -71,26 +71,16 @@ block content
         .title events
         .clear
         .eventlist
-
-          .event
-            .date
-              .month SEP
-              .day 23
-            .image(style="background-image: url(https://s3.amazonaws.com/basal/2bc3bae5283534e0cb66a2cba28680c8.jpeg);")
-            .title owiejr oiwejr owiejr 
-            .description oepweorj powejr oepweorj powejr oepweorj powejr oepweorj powejr oepweorj powejr oepweorj powejr
+          #template
+            .event
+              .date
+                .month MONTH
+                .day DAY
+              .image(style="background-image: url(https://s3.amazonaws.com/basal/2bc3bae5283534e0cb66a2cba28680c8.jpeg);")
+              .title TITLE
+              .description DESC
+              .clear
             .clear
-          .clear
-
-          .event
-            .date
-              .month SEP
-              .day 23
-            .image(style="background-image: url(https://s3.amazonaws.com/basal/2bc3bae5283534e0cb66a2cba28680c8.jpeg);")
-            .title owiejr oiwejr owiejr 
-            .description oepweorj powejr oepweorj powejr oepweorj powejr oepweorj powejr oepweorj powejr oepweorj powejr
-            .clear
-          .clear
 
       .growlers
         .title growlers
@@ -163,3 +153,4 @@ block content
 
   script.
     Index.i()
+  script(src="http://basal.tech/api/entries?structure=580a2d405aa59b031c7234c3&callback=Index.events")
