@@ -3,14 +3,13 @@ extends extends/layout
 block content
 
   .top
-    video(playsinline,autoplay,muted,loop,poster="/images/growler.jpg")
+    video(playsinline,autoplay,muted,loop,poster="/images/poster.jpg")
       source(src="/vid/barrel.mp4",type="video/mp4")
 
     .clear
 
     .logo
 
-    include partial/socials
 
     .burger.on
       .lines
@@ -36,14 +35,15 @@ block content
       a.cta(data-item='beers') see our beers
 
   .infobar
-    .anvil.m
-    .label taproom
-    a.copy(href=config.meta.address.map,target='_new') #{config.meta.address.street}, #{config.meta.address.city}, #{config.meta.address.state}, #{config.meta.address.zip}
-    .anvil.d
-    .label hours
-    .copy Mon-Thu 11am-11pm
-    .dot
-    .copy Fri-Sun 11am-1am
+    .inner
+      a.item(data-item='beers') draft list
+      .dot
+      a.item.second(data-item='events') events 
+      .anvil(data-item='top')
+      a.item.third(data-item='info') taproom
+      .dot
+      a.item(data-item='about') about
+      include partial/socials
 
   .beers
     .title draft list
