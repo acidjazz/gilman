@@ -10,37 +10,41 @@ Basal =
 
     @client = client
 
-    @getStructures ->
+    @getStructures =>
+      @each()
 
-      $(".basal-each").each (i, el) ->
+  each: ->
 
-        el = $(el)
-        structure = el.attr("basal-structure")
+    $(".basal-each").each (i, el) ->
 
-        throw new Error "Basal: Structure not found \"#{structure}\"" if !Basal.structures[structure]?
+      el = $(el)
+      structure = el.attr("basal-structure")
 
-        template = el.children().remove()
+      Basal.error("Structure not found \"#{structure}\"") if !Basal.structures[structure]?
 
-        for own name, entry of Basal.structures[structure].entries
-          tpl = template.clone()
-          tpl.find('*').each (ci, cel) ->
-            jcel = $(cel)
-            name = jcel.attr('basal-name')
-            type = jcel.attr('basal-type')
-            return true if name is undefined
-            if type isnt undefined
-              switch type
-                when 'css-background'
-                  jcel.css 'background-image', "url(#{entry.entities[name].value})"
-                when 'date'
-                  jcel.html moment(entry.entities[name].value, 'MM/DD/YYYY').format jcel.attr('basal-dateformat')
+      template = el.children().remove()
 
+      for own name, entry of Basal.structures[structure].entries
+        tpl = template.clone()
+        tpl.find('*').each (ci, cel) ->
+          jcel = $(cel)
+          name = jcel.attr('basal-name')
+          type = jcel.attr('basal-type')
+          return true if name is undefined
+          if type isnt undefined
+            switch type
+              when 'css-background'
+                jcel.css 'background-image', "url(#{entry.entities[name].value})"
+              when 'date'
+                jcel.html moment(entry.entities[name].value, 'MM/DD/YYYY').format jcel.attr('basal-dateformat')
+
+          else
+            if name is 'structure-name'
+              jcel.html entry.name
             else
-              if name is 'structure-name'
-                jcel.html entry.name
-              else
-                jcel.html entry.entities[name].value
-          el.append tpl
+              jcel.html entry.entities[name].value
+        el.append tpl
+
 
   getStructures: (complete) ->
     @jsonp "structures", client: @client, (result) =>
@@ -66,3 +70,6 @@ Basal =
 
   callback: (data) ->
     Basal.data = data
+
+  error: (message) ->
+    throw new Error "Basal: #{message}"
