@@ -387,14 +387,16 @@
     float right
     width 50%
     height 710px
+    overflow hidden
     > .gallery
       margin 40px 0 0 0
       text-align center
       > .item
         display inline-block
-        width 300px
-        height 300px
+        width 20vw
+        height 20vw
         background-color gc(goldlight)
+        background-size contain
         margin 5px
         for num in (1..4)
           &.item_{num}
@@ -484,5 +486,5 @@
               path, circle
                 fill gc(goldlight)
 
-@media all and (min-width: 1px) and (max-width: 1000px)
+@media all and (min-width: 1px) and (max-width: 1190px)
   @import mobile-1k

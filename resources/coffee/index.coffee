@@ -20,7 +20,7 @@ Index =
       slidesToShow: amt
       slidesToScroll: 1
 
-    if @cache.window.width() > 1000
+    if @cache.window.width() > 1190
       setInterval @sticky, 50
 
   handlers: ->
