@@ -218,20 +218,18 @@ limitations under the License.
             <div class="events">
               <div class="title">events</div>
               <div class="clear"></div>
-              <div class="eventlist">
-                <div id="template">
-                  <div class="event">
-                    <div class="date">
-                      <div class="month">MONTH</div>
-                      <div class="day">DAY</div>
-                    </div>
-                    <div class="image" style="background-image: url(https://s3.amazonaws.com/basal/2bc3bae5283534e0cb66a2cba28680c8.jpeg)"></div>
-                    <div class="title">TITLE</div>
-                    <div class="description">DESC</div>
-                    <div class="clear"></div>
+              <div class="eventlist basal-each" basal-structure="Event">
+                <div class="event">
+                  <div class="date">
+                    <div class="month" basal-name="date" basal-type="date" basal-dateformat="MMM"></div>
+                    <div class="day" basal-name="date" basal-type="date" basal-dateformat="Do"></div>
                   </div>
+                  <div class="image" basal-name="image" basal-type="css-background"></div>
+                  <div class="title" basal-name="structure-name"></div>
+                  <div class="description" basal-name="description"></div>
                   <div class="clear"></div>
                 </div>
+                <div class="clear"></div>
               </div>
             </div>
             <div class="growlers">
@@ -372,7 +370,6 @@ limitations under the License.
           </div>
         </div>
         <script>Index.i()</script>
-        <script src="http://basal.tech/api/entries?structure=580a2d405aa59b031c7234c3&amp;callback=Index.events"></script>
       </div>
     </div>
   </body>

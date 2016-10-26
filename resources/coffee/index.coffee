@@ -5,6 +5,8 @@ Index =
     stickied: false
   i: ->
 
+    Basal.i config.basal.client
+
     @cache.window = $(window)
     
     @handlers()
@@ -59,14 +61,3 @@ Index =
 
   newsletterHandler: ->
     $(this).parent().submit()
-
-  events: (result) ->
-    for event in result.data
-      template = $('.eventlist > #template').clone()
-      date = moment(event.entities[2].value, "MM/DD/YYYY")
-      template.find('.date > .month').html date.format("MMM")
-      template.find('.date > .day').html date.format("DD")
-      template.find('.title').html event.name
-      template.find('.description').html event.entities[0].value
-      template.find('.image').css 'background-image', "url(#{event.entities[1].value})"
-      $('.eventlist').append template.html()

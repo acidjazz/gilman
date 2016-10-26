@@ -70,17 +70,16 @@ block content
       .events
         .title events
         .clear
-        .eventlist
-          #template
-            .event
-              .date
-                .month MONTH
-                .day DAY
-              .image(style="background-image: url(https://s3.amazonaws.com/basal/2bc3bae5283534e0cb66a2cba28680c8.jpeg);")
-              .title TITLE
-              .description DESC
-              .clear
+        .eventlist.basal-each(basal-structure='Event')
+          .event
+            .date
+              .month(basal-name='date',basal-type='date',basal-dateformat="MMM")
+              .day(basal-name='date',basal-type='date',basal-dateformat="Do")
+            .image(basal-name='image',basal-type='css-background')
+            .title(basal-name='structure-name')
+            .description(basal-name='description')
             .clear
+          .clear
 
       .growlers
         .title growlers
@@ -153,4 +152,3 @@ block content
 
   script.
     Index.i()
-  script(src="http://basal.tech/api/entries?structure=580a2d405aa59b031c7234c3&callback=Index.events")
