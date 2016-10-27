@@ -56,15 +56,14 @@ block content
         include ../vector/arrow.svg
       //.nav.right.on
         include ../vector/arrow.svg
-      .inner
-        each beer in config.beers
-          .beer
-            .inner
-              .beer_image
-                img(src="/images/" + beer.image)
-              .beer_name=beer.name
-              .beer_info=beer.info
-              .beer_description=beer.description
+      .inner.basal-each(basal-structure='Draft List')
+        .beer
+          .inner
+            .beer_image: img(basal-name='Beer Image',basal-type='image')
+            .beer_name(basal-name='structure-name')
+            .beer_info(basal-name='ABV / IBUS')
+            .beer_description(basal-name='Description')
+
   .eventsmerch
     .inner
       .events

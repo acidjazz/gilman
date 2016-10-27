@@ -5,7 +5,11 @@ Index =
     stickied: false
   i: ->
 
-    Basal.i config.basal.client
+    Basal.i config.basal.client, ->
+      $('.beerlist > .inner').slick
+        infinite: true
+        slidesToShow: amt
+        slidesToScroll: 1
 
     @cache.window = $(window)
     
@@ -14,11 +18,6 @@ Index =
     width = $(document).width()
 
     amt = Math.floor width / 350
-
-    $('.beerlist > .inner').slick
-      infinite: true
-      slidesToShow: amt
-      slidesToScroll: 1
 
     if @cache.window.width() > 1190
       setInterval @sticky, 50

@@ -6,7 +6,11 @@ Basal =
   data: false
   structures: false
 
-  i: (client) ->
+  complete: false
+
+  i: (client, complete) ->
+
+    @complete = complete
 
     @client = client
 
@@ -15,7 +19,7 @@ Basal =
 
   each: ->
 
-    $(".basal-each").each (i, el) ->
+    $(".basal-each").each( (i, el) ->
 
       el = $(el)
       structure = el.attr("basal-structure")
@@ -31,12 +35,15 @@ Basal =
           name = jcel.attr('basal-name')
           type = jcel.attr('basal-type')
           return true if name is undefined
+
           if type isnt undefined
             switch type
               when 'css-background'
                 jcel.css 'background-image', "url(#{entry.entities[name].value})"
               when 'date'
                 jcel.html moment(entry.entities[name].value, 'MM/DD/YYYY').format jcel.attr('basal-dateformat')
+              when 'image'
+                jcel.attr 'src', entry.entities[name].value
 
           else
             if name is 'structure-name'
@@ -44,6 +51,9 @@ Basal =
             else
               jcel.html entry.entities[name].value
         el.append tpl
+
+      ).promise().done ->
+        Basal.complete()
 
 
   getStructures: (complete) ->
