@@ -34,27 +34,44 @@ Basal =
           jcel = $(cel)
           name = jcel.attr('basal-name')
           type = jcel.attr('basal-type')
-          return true if name is undefined
+          names = jcel.attr('basal-names')?.split ','
+          types = jcel.attr('basal-types')?.split ','
 
-          if type isnt undefined
-            switch type
-              when 'css-background'
-                jcel.css 'background-image', "url(#{entry.entities[name].value})"
-              when 'date'
-                jcel.html moment(entry.entities[name].value, 'MM/DD/YYYY').format jcel.attr('basal-dateformat')
-              when 'image'
-                jcel.attr 'src', entry.entities[name].value
+          return true if name is undefined and names is undefined
 
-          else
-            if name is 'structure-name'
-              jcel.html entry.name
+          if names is undefined
+            names = [name]
+            types = [type]
+
+          for name, i in names
+            type = types[i]
+
+            if type isnt undefined
+              switch type
+                when 'css-background'
+                  jcel.css 'background-image', "url(#{entry.entities[name].value})"
+                when 'date'
+                  jcel.html moment(entry.entities[name].value, 'MM/DD/YYYY').format jcel.attr('basal-dateformat')
+                when 'image'
+                  jcel.attr 'src', entry.entities[name].value
+                when 'text'
+                  jcel.html entry.entities[name].value
+                when 'href'
+                  jcel.attr 'href', entry.entities[name].value
+                  console.log entry.entities[name].value
+
             else
-              jcel.html entry.entities[name].value
+              if name is 'structure-name'
+                jcel.html entry.name
+              else
+                jcel.html entry.entities[name].value
         el.append tpl
 
       ).promise().done ->
         Basal.complete()
 
+  processTypes: (types, jcel) ->
+    return jcel
 
   getStructures: (complete) ->
     @jsonp "structures", client: @client, (result) =>
