@@ -15,11 +15,11 @@ Basal =
     @client = client
 
     @getStructures =>
-      @each()
+      @loop()
 
-  each: ->
+  loop: ->
 
-    $(".basal-each").each( (i, el) ->
+    $(".basal-loop").each( (i, el) ->
 
       el = $(el)
       structure = el.attr("basal-structure")

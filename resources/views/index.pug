@@ -10,7 +10,6 @@ block content
 
     .logo
 
-
     .burger.on
       .lines
         span
@@ -52,11 +51,7 @@ block content
     .clear
 
     .beerlist
-      //.nav.left.off
-        include ../vector/arrow.svg
-      //.nav.right.on
-        include ../vector/arrow.svg
-      .inner.basal-each(basal-structure='Draft List')
+      .inner.basal-loop(basal-structure='Draft List')
         .beer
           .inner
             .beer_image: img(basal-name='Beer Image',basal-type='image')
@@ -69,7 +64,7 @@ block content
       .events
         .title events
         .clear
-        .eventlist.basal-each(basal-structure='Event')
+        .eventlist.basal-loop(basal-structure='Event')
           .event
             .date
               .month(basal-name='date',basal-type='date',basal-dateformat="MMM")
@@ -107,7 +102,6 @@ block content
         .item
       .clear 
 
-        
   .about
     .left.loading
       .inner
