@@ -70,9 +70,6 @@ Basal =
       ).promise().done ->
         Basal.complete()
 
-  processTypes: (types, jcel) ->
-    return jcel
-
   getStructures: (complete) ->
     @jsonp "structures", client: @client, (result) =>
       @structures = {}
