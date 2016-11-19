@@ -58,7 +58,6 @@ Basal =
                   jcel.html entry.entities[name].value
                 when 'href'
                   jcel.attr 'href', entry.entities[name].value
-                  console.log entry.entities[name].value
 
             else
               if name is 'structure-name'
