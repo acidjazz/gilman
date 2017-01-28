@@ -6,9 +6,12 @@
     .copy #{config.meta.address.city}, #{config.meta.address.state}
   .section
     .title hours
-    .copy Mon-Thur:
-      .right 11am-11pm
-    .copy Fri-Sun:
-      .right 11am-1am
+    .copy
+      .right.basal-entry(basal-structure='copy',basal-name='hours1',basal-entity='copy2') 11am-11pm
+      .left.basal-entry(basal-structure='copy',basal-name='hours1',basal-entity='copy1') Mon-Thur:
+    .copy
+      .right.basal-entry(basal-structure='copy',basal-name='hours2',basal-entity='copy2') 11am-1am
+      .left.basal-entry(basal-structure='copy',basal-name='hours2',basal-entity='copy1') Fri-Sun:
+    .copy.basal-entry(basal-structure='copy',basal-name='hours3',basal-entity='copy1') .
   .clear
 

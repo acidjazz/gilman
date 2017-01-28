@@ -16,10 +16,29 @@ Basal =
 
     @getStructures =>
       @loop()
+      @entry()
+
+  entry: ->
+    $('.basal-entry').each (i, el) ->
+
+      el = $(el)
+      structure = el.attr 'basal-structure'
+      name = el.attr 'basal-name'
+      entityName = el.attr 'basal-entity'
+      console.log el
+
+      Basal.error("Structure not found \"#{structure}\"") if !Basal.structures[structure]?
+
+      for key, entry of Basal.structures[structure].entries
+        console.log entry.name
+        if name is entry.name
+          for bkey, entity of entry.entities
+            if entity.name is entityName
+              el.html entity.value
 
   loop: ->
 
-    $(".basal-loop").each( (i, el) ->
+    $('.basal-loop').each( (i, el) ->
 
       el = $(el)
       structure = el.attr("basal-structure")
@@ -95,4 +114,4 @@ Basal =
     Basal.data = data
 
   error: (message) ->
-    throw new Error "Basal: #{message}"
+    throw new Error "basal: #{message}"
