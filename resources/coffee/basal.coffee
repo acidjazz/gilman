@@ -1,6 +1,6 @@
 Basal =
 
-  domain: 'http://basal.tech/api'
+  domain: 'https://basal.tech/api'
   client: false
 
   data: false
