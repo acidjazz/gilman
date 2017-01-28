@@ -25,16 +25,19 @@ Basal =
       structure = el.attr 'basal-structure'
       name = el.attr 'basal-name'
       entityName = el.attr 'basal-entity'
-      console.log el
+      attr = el.attr 'basal-attr'
 
       Basal.error("Structure not found \"#{structure}\"") if !Basal.structures[structure]?
 
       for key, entry of Basal.structures[structure].entries
-        console.log entry.name
         if name is entry.name
           for bkey, entity of entry.entities
             if entity.name is entityName
-              el.html entity.value
+              if attr
+                el.attr attr, entity.value
+                console.log attr
+              else
+                el.html entity.value
 
   loop: ->
 
