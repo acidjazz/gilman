@@ -46,7 +46,7 @@ block content
 
   .beers
     .title draft list
-    .description Gilman IPA, Berkeley Pilsner, Ashby Shout and Telegraph Wehat make up our core beers.  In addition, we brew one-offs, seasonals and collaborations throughout the year.
+    //.description Gilman IPA, Berkeley Pilsner, Ashby Shout and Telegraph Wehat make up our core beers.  In addition, we brew one-offs, seasonals and collaborations throughout the year.
 
     .clear
 
@@ -86,7 +86,6 @@ block content
     .right.loading
       .inner
         .title the taproom
-        .copy Some words about how awesome your tasting room is and what a rad time they'll have when they visit.
         include partial/lochours
         
         .copy Call: 
@@ -96,7 +95,7 @@ block content
           a(href='tel:'+config.meta.email)=config.meta.email
 
     .left
-      .map.loading
+      a.map.loading(href=config.meta.address.map,target='_new')
         .anvil
       .gallery.loading
         .item
