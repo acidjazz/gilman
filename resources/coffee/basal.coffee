@@ -102,7 +102,7 @@ Basal =
 
     params.callback = 'Basal.callback'
 
-    script = "#{documnet.location.protocol}#{@domain}/#{endpoint}?" + $.param params
+    script = "#{document.location.protocol}#{@domain}/#{endpoint}?" + $.param params
 
     el = document.createElement 'script'
     el.src = script
