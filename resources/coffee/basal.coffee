@@ -1,6 +1,6 @@
 Basal =
 
-  domain: 'https://basal.tech/api'
+  domain: '//basal.tech/api'
   client: false
 
   data: false
@@ -102,7 +102,7 @@ Basal =
 
     params.callback = 'Basal.callback'
 
-    script = "#{@domain}/#{endpoint}?" + $.param params
+    script = "#{documnet.location.protocol}#{@domain}/#{endpoint}?" + $.param params
 
     el = document.createElement 'script'
     el.src = script
