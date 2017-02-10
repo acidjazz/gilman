@@ -30,6 +30,7 @@ Basal =
       Basal.error("Structure not found \"#{structure}\"") if !Basal.structures[structure]?
 
       for key, entry of Basal.structures[structure].entries
+        continue if entry.active isnt true
         if name is entry.name
           for bkey, entity of entry.entities
             if entity.name is entityName
@@ -51,6 +52,7 @@ Basal =
       template = el.children().remove()
 
       for own name, entry of Basal.structures[structure].entries
+        continue if entry.active isnt true
         tpl = template.clone()
         tpl.find('*').each (ci, cel) ->
           jcel = $(cel)
